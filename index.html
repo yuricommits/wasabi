@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .canvas-section {
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, border-color 0.3s ease;
+            mix-blend-mode: difference;
+            display: none;
+        }
+
+        .canvas-section .cursor {
+            display: block;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            border-color: #fff;
+        }
+
+        /* Animated Background */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .grid-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100px, 100px);
+            }
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .orb:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: 60%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        .orb:nth-child(3) {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #fff, transparent);
+            bottom: 10%;
+            left: 50%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(0);
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) translateX(100px);
+            }
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 60px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInDown 1s ease forwards 0.2s;
+        }
+
+        .nav-link:hover {
+            border: 1px solid #fff;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: #aaa;
+            margin-bottom: 50px;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.7s;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .notify-form {
+            display: flex;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.9s;
+        }
+
+        .notify-input {
+            flex: 1;
+            padding: 18px 25px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 0;
+            outline: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .notify-input:focus {
+            border-color: #fff;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .notify-input::placeholder {
+            color: #666;
+        }
+
+        .notify-button {
+            padding: 18px 40px;
+            background-color: #fff;
+            color: #000;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            border-radius: 0;
+        }
+
+        .notify-button:hover {
+            background-color: #000;
+            color: #fff;
+            outline: 1px solid #fff;
+        }
+
+        .success-message {
+            display: none;
+            color: #fff;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+
+        /* Second Section - Interactive Canvas */
+        .canvas-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            max-width: 1400px;
+            height: 80vh;
+            padding: 40px;
+        }
+
+        .morphing-shape {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+        }
+
+        .shape-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: morphShape 20s infinite ease-in-out;
+        }
+
+        .shape-layer:nth-child(1) {
+            animation-delay: 0s;
+            animation-duration: 15s;
+        }
+
+        .shape-layer:nth-child(2) {
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        .shape-layer:nth-child(3) {
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes morphShape {
+            0%, 100% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+                transform: rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: rotate(90deg) scale(1.1);
+            }
+            50% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: rotate(180deg) scale(0.9);
+            }
+            75% {
+                border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+                transform: rotate(270deg) scale(1.05);
+            }
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .float-item {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatAround 30s infinite ease-in-out;
+        }
+
+        .float-item:nth-child(1) {
+            top: 20%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .float-item:nth-child(2) {
+            top: 30%;
+            right: 25%;
+            animation-delay: -5s;
+        }
+
+        .float-item:nth-child(3) {
+            bottom: 25%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        .float-item:nth-child(4) {
+            bottom: 30%;
+            right: 20%;
+            animation-delay: -15s;
+        }
+
+        .float-item:nth-child(5) {
+            top: 50%;
+            left: 15%;
+            animation-delay: -20s;
+        }
+
+        .float-item:nth-child(6) {
+            top: 40%;
+            right: 15%;
+            animation-delay: -25s;
+        }
+
+        @keyframes floatAround {
+            0% {
+                opacity: 0;
+                transform: translate(0, 0) scale(1);
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+                transform: translate(100px, -150px) scale(2);
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50px, 100px) scale(0.5);
+            }
+        }
+
+        /* Interactive Fluid Simulation */
+        .reveal-text-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #fluidCanvas {
+            width: 100%;
+            height: 100%;
+            cursor: none;
+        }
+
+        /* Custom trail cursor */
+        .trail-cursor {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transition: transform 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .trail-cursor::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            stroke: rgba(255, 255, 255, 0.2);
+            fill: transparent;
+            stroke-width: 2;
+        }
+
+        .progress-ring-progress {
+            stroke: #fff;
+            fill: transparent;
+            stroke-width: 2;
+            stroke-dasharray: 157;
+            stroke-dashoffset: 157;
+            transition: stroke-dashoffset 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 30px 20px;
+            }
+
+            .notify-form {
+                flex-direction: column;
+            }
+
+            body {
+                cursor: auto;
+            }
+
+            .cursor {
+                display: none;
+            }
+        }
+
+        @media (hover: none) {
+            .cursor {
+                display: none;
+            }
+            
+            body {
+                cursor: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+
+    <div class="background-container">
+        <div class="grid-lines"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
+    <nav>
+        <div class="logo"></div>
+        <a href="news.html" class="nav-link">News</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero-content">
+            <h1>COMING SOON</h1>
+            <p class="subtitle">Something extraordinary is in development</p>
+            
+            <form class="notify-form" id="notifyForm">
+                <input 
+                    type="email" 
+                    class="notify-input" 
+                    placeholder="your@email.com" 
+                    required
+                    id="emailInput"
+                >
+                <button type="submit" class="notify-button">NOTIFY ME</button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                Thank you. We'll be in touch.
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Canvas Section -->
+    <section class="canvas-section">
+        <div class="canvas-container">
+            <div class="morphing-shape">
+                <div class="shape-layer"></div>
+                <div class="shape-layer"></div>
+                <div class="shape-layer"></div>
+            </div>
+            
+            <div class="floating-elements">
+                <div class="float-item"></div>
+                <div class="float-item"></div>
+                <div class="float-item"></div>
+                <div class="float-item"></div>
+                <div class="float-item"></div>
+                <div class="float-item"></div>
+            </div>
+
+            <div class="reveal-text-container">
+                <canvas id="fluidCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trail Cursor -->
+    <div class="trail-cursor"></div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress">
+        <svg class="progress-ring" width="60" height="60">
+            <circle class="progress-ring-circle" cx="30" cy="30" r="25"></circle>
+            <circle class="progress-ring-progress" cx="30" cy="30" r="25"></circle>
+        </svg>
+    </div>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const links = document.querySelectorAll('a, button, input');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Generate particles
+        function createParticles() {
+            const container = document.querySelector('.background-container');
+            const particleCount = 30;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Form submission
+        document.getElementById('notifyForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const successMessage = document.getElementById('successMessage');
+            const form = document.getElementById('notifyForm');
+            
+            console.log('Email submitted:', email);
+            
+            form.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            setTimeout(() => {
+                form.style.display = 'flex';
+                successMessage.style.display = 'none';
+                document.getElementById('emailInput').value = '';
+            }, 3000);
+        });
+
+        // Trail cursor
+        const trailCursor = document.querySelector('.trail-cursor');
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            trailCursor.style.left = e.clientX + 'px';
+            trailCursor.style.top = e.clientY + 'px';
+        });
+
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Fluid Canvas Particle System
+        const canvas = document.getElementById('fluidCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        const particles = [];
+        const particleCount = 150;
+        const connectionDistance = 120;
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2, radius: 150 };
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+                this.originalVx = this.vx;
+                this.originalVy = this.vy;
+            }
+
+            update() {
+                // Mouse interaction
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < mouse.radius) {
+                    const force = (mouse.radius - distance) / mouse.radius;
+                    const angle = Math.atan2(dy, dx);
+                    this.vx -= Math.cos(angle) * force * 0.5;
+                    this.vy -= Math.sin(angle) * force * 0.5;
+                } else {
+                    // Return to original velocity
+                    this.vx += (this.originalVx - this.vx) * 0.05;
+                    this.vy += (this.originalVy - this.vy) * 0.05;
+                }
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Boundary check
+                if (this.x < 0 || this.x > canvas.width) {
+                    this.vx *= -1;
+                    this.originalVx *= -1;
+                }
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.vy *= -1;
+                    this.originalVy *= -1;
+                }
+
+                // Keep within bounds
+                this.x = Math.max(0, Math.min(canvas.width, this.x));
+                this.y = Math.max(0, Math.min(canvas.height, this.y));
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.fill();
+            }
+        }
+
+        // Create particles
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        // Draw connections
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < connectionDistance) {
+                        const opacity = (1 - distance / connectionDistance) * 0.5;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            drawConnections();
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Update mouse position for canvas
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        canvas.addEventListener('mouseleave', () => {
+            mouse.x = canvas.width / 2;
+            mouse.y = canvas.height / 2;
+        });
+
+        // Scroll progress indicator
+        const progressCircle = document.querySelector('.progress-ring-progress');
+        const scrollProgress = document.querySelector('.scroll-progress');
+        
+        window.addEventListener('scroll', () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight - windowHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / documentHeight) * 157;
+            
+            progressCircle.style.strokeDashoffset = 157 - progress;
+
+            // Show/hide based on scroll position
+            if (scrolled > 100) {
+                scrollProgress.style.opacity = '1';
+            } else {
+                scrollProgress.style.opacity = '0';
+            }
+        });
+
+        // Interactive morphing shape - mouse tracking
+        const morphingShape = document.querySelector('.morphing-shape');
+        
+        document.addEventListener('mousemove', (e) => {
+            if (morphingShape) {
+                const rect = morphingShape.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const angleX = (e.clientY - centerY) / 50;
+                const angleY = (e.clientX - centerX) / 50;
+                
+                morphingShape.style.transform = `translate(-50%, -50%) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            }
+        });
+    </script>
+</body>
+</html>
