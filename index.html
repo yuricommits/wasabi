@@ -18,35 +18,300 @@
             background-color: #000;
             color: #fff;
             overflow-x: hidden;
-        }
-
-        .canvas-section {
             cursor: none;
+            /* Hide scrollbar */
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
         }
 
-        /* Custom Cursor */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.2s ease, border-color 0.3s ease;
-            mix-blend-mode: difference;
+        body::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        html {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar {
             display: none;
         }
 
-        .canvas-section .cursor {
+        /* Smooth scaling for all elements */
+        * {
+            transition: font-size 0.3s ease, padding 0.3s ease, margin 0.3s ease;
+        }
+
+        /* Custom Minimalist Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10001;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+        }
+
+        .custom-cursor-outline {
+            position: fixed;
+            width: 30px;
+            height: 30px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, opacity 0.2s ease;
+        }
+
+        /* Cursor hover states */
+        body.cursor-hover .custom-cursor {
+            width: 4px;
+            height: 4px;
+        }
+
+        body.cursor-hover .custom-cursor-outline {
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Hide cursor on clickable elements */
+        a, button, input, textarea, select {
+            cursor: none;
+        }
+
+        /* Hide custom cursor on mobile */
+        @media (hover: none) and (pointer: coarse) {
+            .custom-cursor,
+            .custom-cursor-outline {
+                display: none;
+            }
+            
+            body, a, button, input, textarea, select {
+                cursor: auto !important;
+            }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-container {
+            text-align: center;
+            position: relative;
+        }
+
+        /* Expanding Rings */
+        .loading-rings {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+        }
+
+        .loading-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: expandRing 3s ease-out infinite;
+        }
+
+        .loading-ring:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .loading-ring:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        .loading-ring:nth-child(3) {
+            animation-delay: 2s;
+        }
+
+        @keyframes expandRing {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 1;
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
+        }
+
+        /* Loading Counter */
+        .loading-counter {
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #fff 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Loading Text */
+        .loading-text {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #666;
+            overflow: hidden;
+            height: 1.5em;
+        }
+
+        .loading-word {
             display: block;
+            animation: slideWords 6s infinite;
         }
 
-        .cursor.hover {
-            transform: scale(2);
-            border-color: #fff;
+        @keyframes slideWords {
+            0%, 25% {
+                transform: translateY(0);
+            }
+            33%, 58% {
+                transform: translateY(-100%);
+            }
+            66%, 91% {
+                transform: translateY(-200%);
+            }
+            100% {
+                transform: translateY(-300%);
+            }
         }
 
+        /* Progress Bar */
+        .loading-progress {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: #fff;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .progress-percentage {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #666;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        /* Morphing Shape */
+        .loading-morph {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            animation: morphShape 4s ease-in-out infinite;
+        }
+
+        @keyframes morphShape {
+            0%, 100% {
+                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            25% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+            50% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                transform: translate(-50%, -50%) rotate(180deg);
+            }
+            75% {
+                border-radius: 40% 60% 60% 40% / 60% 40% 40% 60%;
+                transform: translate(-50%, -50%) rotate(270deg);
+            }
+        }
+
+        /* Glitch Lines */
+        .glitch-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #fff;
+            opacity: 0;
+            animation: glitchAppear 3s infinite;
+        }
+
+        .glitch-line:nth-child(1) {
+            top: 30%;
+            animation-delay: 0.5s;
+        }
+
+        .glitch-line:nth-child(2) {
+            top: 50%;
+            animation-delay: 1.5s;
+        }
+
+        .glitch-line:nth-child(3) {
+            top: 70%;
+            animation-delay: 2.5s;
+        }
+
+        @keyframes glitchAppear {
+            0%, 90%, 100% {
+                opacity: 0;
+                transform: scaleX(0);
+            }
+            92%, 96% {
+                opacity: 0.3;
+                transform: scaleX(1);
+            }
+        }
+
+        /* Custom Cursor - Simplified */
         /* Animated Background */
         .background-container {
             position: fixed;
@@ -282,6 +547,307 @@
             margin-top: 20px;
         }
 
+        /* Scroll down indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards 1.5s;
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .scroll-down-text {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, #fff, transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: translateY(0);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(10px);
+            }
+        }
+
+        /* Reveal Section with Parallax */
+        .reveal-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .reveal-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 1200px;
+            padding: 40px;
+        }
+
+        .reveal-line {
+            font-size: clamp(2.5rem, 7vw, 6rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-line.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-line:nth-child(1) {
+            transition-delay: 0.2s;
+        }
+
+        .reveal-line:nth-child(2) {
+            transition-delay: 0.4s;
+            background: linear-gradient(90deg, #fff 0%, #888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reveal-line:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+
+        /* Parallax layers */
+        .parallax-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            top: 20%;
+            left: 10%;
+            animation: floatShape1 15s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            bottom: 20%;
+            right: 15%;
+            animation: floatShape2 12s ease-in-out infinite;
+        }
+
+        .shape-3 {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 70%;
+            animation: floatShape3 18s ease-in-out infinite;
+        }
+
+        @keyframes floatShape1 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(30px, -40px) rotate(180deg);
+            }
+        }
+
+        @keyframes floatShape2 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(-40px, 30px) rotate(-180deg);
+            }
+        }
+
+        @keyframes floatShape3 {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            50% {
+                transform: translate(20px, 50px) rotate(90deg);
+            }
+        }
+
+        /* Information Section - Parallax Stats */
+        .info-section {
+            position: relative;
+            padding: 0;
+        }
+
+        .stat-parallax-item {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .stat-background-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stat-bg-circle {
+            width: 400px;
+            height: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .stat-bg-circle:nth-child(1) {
+            width: 300px;
+            height: 300px;
+        }
+
+        .stat-bg-circle:nth-child(2) {
+            width: 500px;
+            height: 500px;
+        }
+
+        .stat-bg-circle:nth-child(3) {
+            width: 700px;
+            height: 700px;
+        }
+
+        .stat-content-layer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 900px;
+            padding: 60px;
+            opacity: 0;
+            transform: translateY(50px) scale(0.95);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-parallax-item.in-view .stat-content-layer {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .stat-number-large {
+            font-size: clamp(6rem, 15vw, 12rem);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            line-height: 1;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff 0%, #666 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+        }
+
+        .stat-parallax-item.in-view .stat-number-large {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stat-title {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+        }
+
+        .stat-parallax-item.in-view .stat-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-text {
+            font-size: clamp(1rem, 1.8vw, 1.3rem);
+            line-height: 1.8;
+            color: #888;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+        }
+
+        .stat-parallax-item.in-view .stat-text {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Parallax Depth Lines */
+        .depth-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .stat-parallax-item.in-view .depth-line {
+            opacity: 1;
+        }
+
+        .depth-line-1 {
+            width: 60%;
+            top: 20%;
+            left: 20%;
+        }
+
+        .depth-line-2 {
+            width: 50%;
+            bottom: 30%;
+            right: 15%;
+        }
+
         /* Second Section - Interactive Canvas */
         .canvas-section {
             position: relative;
@@ -444,31 +1010,6 @@
             cursor: none;
         }
 
-        /* Custom trail cursor */
-        .trail-cursor {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.15s ease;
-            mix-blend-mode: difference;
-        }
-
-        .trail-cursor::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-        }
-
         /* Scroll Progress Indicator */
         .scroll-progress {
             position: fixed;
@@ -498,6 +1039,17 @@
             stroke-dasharray: 157;
             stroke-dashoffset: 157;
             transition: stroke-dashoffset 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 40px;
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
         }
 
         @keyframes fadeInUp {
@@ -567,7 +1119,38 @@
     </style>
 </head>
 <body>
-    <div class="cursor"></div>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="custom-cursor-outline" id="customCursorOutline"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="glitch-line"></div>
+        <div class="glitch-line"></div>
+        <div class="glitch-line"></div>
+        
+        <div class="loading-morph"></div>
+        
+        <div class="loading-rings">
+            <div class="loading-ring"></div>
+            <div class="loading-ring"></div>
+            <div class="loading-ring"></div>
+        </div>
+        
+        <div class="loading-container">
+            <div class="loading-counter" id="loadingCounter">0</div>
+            <div class="loading-text">
+                <div class="loading-word">Initializing<br>Calibrating<br>Optimizing<br>Loading</div>
+            </div>
+        </div>
+
+        <div class="loading-progress">
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+            <div class="progress-percentage" id="progressPercentage">0%</div>
+        </div>
+    </div>
 
     <div class="background-container">
         <div class="grid-lines"></div>
@@ -578,7 +1161,10 @@
 
     <nav>
         <div class="logo"></div>
-        <a href="news.html" class="nav-link">News</a>
+        <div style="display: flex; gap: 30px;">
+            <a href="vision.html" class="nav-link">Vision</a>
+            <a href="news.html" class="nav-link">News</a>
+        </div>
     </nav>
 
     <div class="container">
@@ -601,7 +1187,84 @@
                 Thank you. We'll be in touch.
             </div>
         </div>
+
+        <!-- Scroll Down Indicator -->
+        <div class="scroll-down" id="scrollDown">
+            <span class="scroll-down-text">Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
     </div>
+
+    <!-- Reveal Section -->
+    <section class="reveal-section">
+        <div class="parallax-layer" id="parallaxLayer">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+        <div class="reveal-content">
+            <div class="reveal-line">The most advanced</div>
+            <div class="reveal-line">Spaced Recognition</div>
+            <div class="reveal-line">System</div>
+        </div>
+    </section>
+
+    <!-- Information & Stats Section -->
+    <section class="info-section">
+        <!-- Stat 1: 10× -->
+        <div class="stat-parallax-item" data-stat="1">
+            <div class="stat-background-layer" data-speed="0.3">
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+            </div>
+            <div class="depth-line depth-line-1" data-speed="0.5"></div>
+            <div class="depth-line depth-line-2" data-speed="0.4"></div>
+            <div class="stat-content-layer" data-speed="0.1">
+                <div class="stat-number-large">10×</div>
+                <div class="stat-title">Faster Retention</div>
+                <div class="stat-text">
+                    Optimized intervals maximize learning efficiency, reducing study time while enhancing long-term memory consolidation through scientifically proven spacing algorithms.
+                </div>
+            </div>
+        </div>
+
+        <!-- Stat 2: 99.9% -->
+        <div class="stat-parallax-item" data-stat="2">
+            <div class="stat-background-layer" data-speed="0.3">
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+            </div>
+            <div class="depth-line depth-line-1" data-speed="0.5"></div>
+            <div class="depth-line depth-line-2" data-speed="0.4"></div>
+            <div class="stat-content-layer" data-speed="0.1">
+                <div class="stat-number-large">99.9%</div>
+                <div class="stat-title">Precision</div>
+                <div class="stat-text">
+                    Advanced algorithms analyze patterns with near-perfect accuracy, ensuring optimal timing for every review through continuous pattern recognition and adaptive learning.
+                </div>
+            </div>
+        </div>
+
+        <!-- Stat 3: ∞ -->
+        <div class="stat-parallax-item" data-stat="3">
+            <div class="stat-background-layer" data-speed="0.3">
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+                <div class="stat-bg-circle"></div>
+            </div>
+            <div class="depth-line depth-line-1" data-speed="0.5"></div>
+            <div class="depth-line depth-line-2" data-speed="0.4"></div>
+            <div class="stat-content-layer" data-speed="0.1">
+                <div class="stat-number-large">∞</div>
+                <div class="stat-title">Infinite Adaptation</div>
+                <div class="stat-text">
+                    Continuously evolves with your unique learning patterns, providing personalized optimization at every stage through intelligent analysis and real-time adjustments.
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Interactive Canvas Section -->
     <section class="canvas-section">
@@ -627,9 +1290,6 @@
         </div>
     </section>
 
-    <!-- Trail Cursor -->
-    <div class="trail-cursor"></div>
-
     <!-- Scroll Progress -->
     <div class="scroll-progress">
         <svg class="progress-ring" width="60" height="60">
@@ -638,23 +1298,105 @@
         </svg>
     </div>
 
+    <!-- Footer -->
+    <footer>
+        © 2026 · All Rights Reserved
+    </footer>
+
     <script>
         // Custom Cursor
-        const cursor = document.querySelector('.cursor');
-        const links = document.querySelectorAll('a, button, input');
+        const customCursor = document.getElementById('customCursor');
+        const customCursorOutline = document.getElementById('customCursorOutline');
+        let cursorX = 0;
+        let cursorY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
 
+        // Update cursor position
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            cursorX = e.clientX;
+            cursorY = e.clientY;
         });
 
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                cursor.classList.add('hover');
+        // Smooth cursor animation
+        function animateCursor() {
+            // Inner cursor follows immediately
+            customCursor.style.left = cursorX + 'px';
+            customCursor.style.top = cursorY + 'px';
+
+            // Outline follows with delay for smooth effect
+            outlineX += (cursorX - outlineX) * 0.15;
+            outlineY += (cursorY - outlineY) * 0.15;
+            
+            customCursorOutline.style.left = outlineX + 'px';
+            customCursorOutline.style.top = outlineY + 'px';
+
+            requestAnimationFrame(animateCursor);
+        }
+
+        animateCursor();
+
+        // Hover effect on interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .notify-button, .nav-link');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-hover');
             });
-            link.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hover');
+            
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-hover');
             });
+        });
+
+        // Loading Screen Animation - Only on First Visit
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            const counter = document.getElementById('loadingCounter');
+            const progressBar = document.getElementById('progressBar');
+            const progressPercentage = document.getElementById('progressPercentage');
+            
+            // Check if user has visited before
+            const hasVisited = localStorage.getItem('hasVisitedSRS');
+            
+            if (!hasVisited) {
+                // First visit - show loading screen
+                document.body.style.overflow = 'hidden';
+                
+                // Delay before starting (1 second to appreciate animations)
+                setTimeout(() => {
+                    let count = 0;
+                    const duration = 2500; // 2.5 seconds
+                    const increment = 100 / (duration / 16); // Update every frame (16ms)
+                    
+                    const counterInterval = setInterval(() => {
+                        count += increment;
+                        
+                        if (count >= 100) {
+                            count = 100;
+                            clearInterval(counterInterval);
+                            
+                            // Delay after reaching 100% (1.5 seconds to savor completion)
+                            setTimeout(() => {
+                                loadingScreen.classList.add('hidden');
+                                document.body.style.overflow = 'auto';
+                                // Mark as visited
+                                localStorage.setItem('hasVisitedSRS', 'true');
+                            }, 1500);
+                        }
+                        
+                        // Update counter with easing
+                        const displayCount = Math.floor(count);
+                        counter.textContent = displayCount;
+                        progressBar.style.width = count + '%';
+                        progressPercentage.textContent = displayCount + '%';
+                    }, 16);
+                }, 1000); // 1 second delay before starting
+            } else {
+                // Returning visit - hide loading screen immediately
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
         });
 
         // Generate particles
@@ -673,6 +1415,140 @@
         }
 
         createParticles();
+
+        // Scroll down indicator click
+        document.getElementById('scrollDown').addEventListener('click', () => {
+            document.querySelector('.reveal-section').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+
+        // Parallax scroll effect for all sections
+        let autoScrolling = false;
+        let autoScrollComplete = false;
+
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            
+            // Reveal section parallax
+            const parallaxLayer = document.getElementById('parallaxLayer');
+            if (parallaxLayer) {
+                parallaxLayer.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+
+            // Reveal lines animation
+            const revealSection = document.querySelector('.reveal-section');
+            const revealLines = document.querySelectorAll('.reveal-line');
+            
+            if (revealSection && !autoScrolling && !autoScrollComplete) {
+                const sectionTop = revealSection.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (sectionTop < windowHeight * 0.75) {
+                    revealLines.forEach(line => {
+                        line.classList.add('visible');
+                    });
+                }
+
+                // Check if reveal section is centered
+                const sectionCenter = sectionTop + (revealSection.offsetHeight / 2);
+                const viewportCenter = windowHeight / 2;
+                const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
+
+                // If reveal section is centered (within 50px tolerance)
+                if (distanceFromCenter < 50 && !autoScrollComplete) {
+                    autoScrolling = true;
+                    startCinematicScroll();
+                }
+            }
+
+            // Stats parallax depth effect (only when not auto-scrolling)
+            if (!autoScrolling) {
+                updateStatsParallax(scrolled);
+            }
+        });
+
+        function updateStatsParallax(scrolled) {
+            const statItems = document.querySelectorAll('.stat-parallax-item');
+            statItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemCenter = rect.top + rect.height / 2;
+                const windowCenter = window.innerHeight / 2;
+                const distanceFromCenter = itemCenter - windowCenter;
+                
+                // Activate when in view
+                if (rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3) {
+                    item.classList.add('in-view');
+                } else {
+                    item.classList.remove('in-view');
+                }
+                
+                // Parallax layers at different speeds
+                const bgLayer = item.querySelector('.stat-background-layer');
+                const contentLayer = item.querySelector('.stat-content-layer');
+                const depthLines = item.querySelectorAll('.depth-line');
+                
+                if (bgLayer) {
+                    const bgSpeed = 0.3;
+                    bgLayer.style.transform = `translateY(${distanceFromCenter * bgSpeed}px)`;
+                }
+                
+                if (contentLayer) {
+                    const contentSpeed = 0.1;
+                    contentLayer.style.transform = `translateY(${distanceFromCenter * contentSpeed}px)`;
+                }
+                
+                depthLines.forEach((line, index) => {
+                    const lineSpeed = 0.4 + (index * 0.1);
+                    line.style.transform = `translateY(${distanceFromCenter * lineSpeed}px)`;
+                });
+                
+                // Rotate background circles based on scroll position
+                const circles = item.querySelectorAll('.stat-bg-circle');
+                circles.forEach((circle, index) => {
+                    const rotation = scrolled * (0.05 + index * 0.02);
+                    circle.style.transform = `rotate(${rotation}deg)`;
+                });
+            });
+        }
+
+        function startCinematicScroll() {
+            // Disable manual scroll temporarily
+            document.body.style.overflow = 'hidden';
+            
+            // Get the info section (stats section)
+            const infoSection = document.querySelector('.info-section');
+            const startPosition = window.pageYOffset;
+            const targetPosition = infoSection.offsetTop + (infoSection.offsetHeight * 0.8);
+            const distance = targetPosition - startPosition;
+            const duration = 4000; // 4 seconds slow scroll
+            const startTime = performance.now();
+
+            function smoothScroll(currentTime) {
+                const elapsed = currentTime - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Easing function for smooth deceleration
+                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+                
+                const newPosition = startPosition + (distance * easeOutCubic);
+                window.scrollTo(0, newPosition);
+                
+                // Update parallax during auto-scroll
+                updateStatsParallax(newPosition);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(smoothScroll);
+                } else {
+                    // Re-enable manual scroll
+                    document.body.style.overflow = 'auto';
+                    autoScrolling = false;
+                    autoScrollComplete = true;
+                }
+            }
+
+            requestAnimationFrame(smoothScroll);
+        }
 
         // Form submission
         document.getElementById('notifyForm').addEventListener('submit', function(e) {
@@ -694,19 +1570,7 @@
             }, 3000);
         });
 
-        // Trail cursor
-        const trailCursor = document.querySelector('.trail-cursor');
-        let mouseX = 0;
-        let mouseY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            trailCursor.style.left = e.clientX + 'px';
-            trailCursor.style.top = e.clientY + 'px';
-        });
-
-        // Parallax effect on mouse move
+        // Parallax effect on mouse move for orbs
         document.addEventListener('mousemove', (e) => {
             const orbs = document.querySelectorAll('.orb');
             const x = e.clientX / window.innerWidth;

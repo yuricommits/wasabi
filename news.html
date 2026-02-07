@@ -1,502 +1,475 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>News - Development Log</title>
-        <style>
-            @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Development Log</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.2s ease, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            border-color: #fff;
+        }
+
+        /* Animated Background */
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .grid-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100px 100px;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
             }
-
-            body {
-                font-family:
-                    "Space Grotesk",
-                    -apple-system,
-                    BlinkMacSystemFont,
-                    "Segoe UI",
-                    Roboto,
-                    sans-serif;
-                background-color: #000;
-                color: #fff;
-                overflow-x: hidden;
-                cursor: none;
+            100% {
+                transform: translate(100px, 100px);
             }
+        }
 
-            /* Custom Cursor */
-            .cursor {
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                border: 2px solid #fff;
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transition:
-                    transform 0.2s ease,
-                    border-color 0.3s ease;
-                mix-blend-mode: difference;
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.2;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+
+        .orb:nth-child(2) {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #fff, transparent);
+            top: 60%;
+            right: 20%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
             }
-
-            .cursor.hover {
-                transform: scale(2);
-                border-color: #fff;
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
             }
-
-            /* Animated Background */
-            .background-container {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-                overflow: hidden;
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
             }
+        }
 
-            .grid-lines {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background-image:
-                    linear-gradient(
-                        rgba(255, 255, 255, 0.03) 1px,
-                        transparent 1px
-                    ),
-                    linear-gradient(
-                        90deg,
-                        rgba(255, 255, 255, 0.03) 1px,
-                        transparent 1px
-                    );
-                background-size: 100px 100px;
-                animation: gridMove 20s linear infinite;
-            }
+        /* Particles */
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 15s infinite ease-in-out;
+        }
 
-            @keyframes gridMove {
-                0% {
-                    transform: translate(0, 0);
-                }
-                100% {
-                    transform: translate(100px, 100px);
-                }
-            }
-
-            .orb {
-                position: absolute;
-                border-radius: 50%;
-                filter: blur(80px);
-                opacity: 0.2;
-                animation: float 20s infinite ease-in-out;
-            }
-
-            .orb:nth-child(1) {
-                width: 400px;
-                height: 400px;
-                background: radial-gradient(circle, #fff, transparent);
-                top: 10%;
-                left: 20%;
-                animation-delay: 0s;
-            }
-
-            .orb:nth-child(2) {
-                width: 300px;
-                height: 300px;
-                background: radial-gradient(circle, #fff, transparent);
-                top: 60%;
-                right: 20%;
-                animation-delay: -7s;
-            }
-
-            @keyframes float {
-                0%,
-                100% {
-                    transform: translate(0, 0) scale(1);
-                }
-                33% {
-                    transform: translate(50px, -50px) scale(1.1);
-                }
-                66% {
-                    transform: translate(-30px, 30px) scale(0.9);
-                }
-            }
-
-            /* Particles */
-            .particle {
-                position: absolute;
-                width: 2px;
-                height: 2px;
-                background: #fff;
-                border-radius: 50%;
+        @keyframes particleFloat {
+            0% {
                 opacity: 0;
-                animation: particleFloat 15s infinite ease-in-out;
+                transform: translateY(100vh) translateX(0);
             }
-
-            @keyframes particleFloat {
-                0% {
-                    opacity: 0;
-                    transform: translateY(100vh) translateX(0);
-                }
-                10% {
-                    opacity: 0.5;
-                }
-                90% {
-                    opacity: 0.5;
-                }
-                100% {
-                    opacity: 0;
-                    transform: translateY(-100px) translateX(100px);
-                }
+            10% {
+                opacity: 0.5;
             }
-
-            /* Navigation */
-            nav {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                padding: 40px 60px;
-                z-index: 100;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                backdrop-filter: blur(10px);
-                background: rgba(0, 0, 0, 0.3);
+            90% {
+                opacity: 0.5;
             }
-
-            .logo {
-                width: 40px;
-                height: 40px;
-            }
-
-            .nav-link {
-                color: #fff;
-                text-decoration: none;
-                font-size: 0.95rem;
-                letter-spacing: 1px;
-                padding: 10px 20px;
-                border: 1px solid transparent;
-                transition: all 0.3s ease;
-            }
-
-            .nav-link:hover {
-                border: 1px solid #fff;
-            }
-
-            /* Main Content */
-            .container {
-                position: relative;
-                z-index: 10;
-                max-width: 900px;
-                margin: 0 auto;
-                padding: 160px 40px 100px;
-            }
-
-            .page-title {
-                font-size: clamp(3rem, 8vw, 5rem);
-                font-weight: 300;
-                letter-spacing: 0.2em;
-                margin-bottom: 20px;
+            100% {
                 opacity: 0;
-                animation: fadeInUp 1s ease forwards;
-                text-transform: uppercase;
+                transform: translateY(-100px) translateX(100px);
             }
+        }
 
-            .page-subtitle {
-                font-size: 1.2rem;
-                color: #666;
-                margin-bottom: 80px;
-                letter-spacing: 0.15em;
-                opacity: 0;
-                animation: fadeInUp 1s ease forwards 0.2s;
-                font-weight: 300;
-                text-transform: uppercase;
-            }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 60px;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+        }
 
-            .timeline {
-                position: relative;
-                padding-left: 60px;
-            }
+        .logo {
+            width: 40px;
+            height: 40px;
+        }
 
-            .timeline::before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 1px;
-                height: 100%;
-                background: linear-gradient(to bottom, #fff, transparent);
-                opacity: 0.2;
-            }
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
 
-            .log-entry {
-                position: relative;
-                margin-bottom: 80px;
+        .nav-link:hover {
+            border: 1px solid #fff;
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 160px 40px 100px;
+        }
+
+        .page-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            text-transform: uppercase;
+        }
+
+        .page-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 80px;
+            letter-spacing: 0.15em;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.2s;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 60px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(to bottom, #fff, transparent);
+            opacity: 0.2;
+        }
+
+        .log-entry {
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .log-entry.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: -65px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .log-date {
+            font-size: 0.85rem;
+            color: #666;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .log-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .log-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #aaa;
+        }
+
+        .log-divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.1), transparent);
+            margin: 60px 0;
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 40px;
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeInUp {
+            from {
                 opacity: 0;
                 transform: translateY(30px);
-                transition: all 0.6s ease;
             }
-
-            .log-entry.visible {
+            to {
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 30px 20px;
+            }
+
+            .container {
+                padding: 140px 20px 80px;
+            }
+
+            .timeline {
+                padding-left: 40px;
+            }
 
             .log-entry::before {
-                content: "";
-                position: absolute;
-                left: -65px;
-                top: 5px;
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: #fff;
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+                left: -45px;
             }
 
-            .log-date {
-                font-size: 0.85rem;
-                color: #666;
-                letter-spacing: 2px;
-                margin-bottom: 15px;
-                text-transform: uppercase;
+            body {
+                cursor: auto;
             }
 
-            .log-title {
-                font-size: 1.8rem;
-                font-weight: 400;
-                margin-bottom: 15px;
-                letter-spacing: 0.05em;
+            .cursor {
+                display: none;
             }
+        }
 
-            .log-content {
-                font-size: 1rem;
-                line-height: 1.8;
-                color: #aaa;
+        @media (hover: none) {
+            .cursor {
+                display: none;
             }
-
-            .log-divider {
-                height: 1px;
-                background: linear-gradient(
-                    to right,
-                    rgba(255, 255, 255, 0.1),
-                    transparent
-                );
-                margin: 60px 0;
+            
+            body {
+                cursor: auto;
             }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
 
-            /* Footer */
-            footer {
-                position: relative;
-                z-index: 10;
-                text-align: center;
-                padding: 60px 40px;
-                color: #666;
-                font-size: 0.85rem;
-                letter-spacing: 1px;
-            }
+    <div class="background-container">
+        <div class="grid-lines"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-
-            @media (max-width: 768px) {
-                nav {
-                    padding: 30px 20px;
-                }
-
-                .container {
-                    padding: 140px 20px 80px;
-                }
-
-                .timeline {
-                    padding-left: 40px;
-                }
-
-                .log-entry::before {
-                    left: -45px;
-                }
-
-                body {
-                    cursor: auto;
-                }
-
-                .cursor {
-                    display: none;
-                }
-            }
-
-            @media (hover: none) {
-                .cursor {
-                    display: none;
-                }
-
-                body {
-                    cursor: auto;
-                }
-            }
-        </style>
-    </head>
-    <body>
-        <div class="cursor"></div>
-
-        <div class="background-container">
-            <div class="grid-lines"></div>
-            <div class="orb"></div>
-            <div class="orb"></div>
-        </div>
-
-        <nav>
-            <div class="logo"></div>
+    <nav>
+        <div class="logo"></div>
+        <div style="display: flex; gap: 30px;">
             <a href="index.html" class="nav-link">Home</a>
-        </nav>
+            <a href="vision.html" class="nav-link">Vision</a>
+        </div>
+    </nav>
 
-        <div class="container">
-            <h1 class="page-title">Development Log</h1>
-            <p class="page-subtitle">Track our progress</p>
+    <div class="container">
+        <h1 class="page-title">Development Log</h1>
+        <p class="page-subtitle">Track our progress</p>
 
-            <div class="timeline">
-                <div class="log-entry">
-                    <div class="log-date">05 February 2026</div>
-                    <div class="log-title">Initial Planning Phase</div>
-                    <div class="log-content">
-                        Foundation work has commenced. Core architecture and
-                        technical specifications are being finalized as we
-                        prepare for the development sprint.
-                    </div>
+        <div class="timeline">
+            <div class="log-entry">
+                <div class="log-date">06 February 2026</div>
+                <div class="log-title">Initial Planning Phase</div>
+                <div class="log-content">
+                    Foundation work has commenced. Core architecture and technical specifications are being finalized as we prepare for the development sprint.
                 </div>
+            </div>
 
-                <div class="log-divider"></div>
+            <div class="log-divider"></div>
 
-                <div class="log-entry">
-                    <div class="log-date">01 February 2026</div>
-                    <div class="log-title">Project Conception</div>
-                    <div class="log-content">
-                        After months of research and ideation, the project
-                        concept has been solidified. Team assembly is underway
-                        and preliminary technical assessments are complete.
-                    </div>
+            <div class="log-entry">
+                <div class="log-date">01 February 2026</div>
+                <div class="log-title">Project Conception</div>
+                <div class="log-content">
+                    After months of research and ideation, the project concept has been solidified. Team assembly is underway and preliminary technical assessments are complete.
                 </div>
+            </div>
 
-                <div class="log-divider"></div>
+            <div class="log-divider"></div>
 
-                <div class="log-entry">
-                    <div class="log-date">Coming Soon</div>
-                    <div class="log-title">Alpha Development Begins</div>
-                    <div class="log-content">
-                        The first working prototype will enter development. Core
-                        functionality and primary features will take shape in
-                        the initial alpha build.
-                    </div>
+            <div class="log-entry">
+                <div class="log-date">Coming Soon</div>
+                <div class="log-title">Alpha Development Begins</div>
+                <div class="log-content">
+                    The first working prototype will enter development. Core functionality and primary features will take shape in the initial alpha build.
                 </div>
+            </div>
 
-                <div class="log-divider"></div>
+            <div class="log-divider"></div>
 
-                <div class="log-entry">
-                    <div class="log-date">Coming Soon</div>
-                    <div class="log-title">Beta Testing Program</div>
-                    <div class="log-content">
-                        Limited beta access will be granted to select users for
-                        comprehensive testing and feedback gathering. This phase
-                        will be crucial for refinement.
-                    </div>
+            <div class="log-entry">
+                <div class="log-date">Coming Soon</div>
+                <div class="log-title">Beta Testing Program</div>
+                <div class="log-content">
+                    Limited beta access will be granted to select users for comprehensive testing and feedback gathering. This phase will be crucial for refinement.
                 </div>
+            </div>
 
-                <div class="log-divider"></div>
+            <div class="log-divider"></div>
 
-                <div class="log-entry">
-                    <div class="log-date">Coming Soon</div>
-                    <div class="log-title">Public Launch</div>
-                    <div class="log-content">
-                        Official release date to be announced. Stay tuned for
-                        updates as we approach this milestone.
-                    </div>
+            <div class="log-entry">
+                <div class="log-date">Coming Soon</div>
+                <div class="log-title">Public Launch</div>
+                <div class="log-content">
+                    Official release date to be announced. Stay tuned for updates as we approach this milestone.
                 </div>
             </div>
         </div>
+    </div>
 
-        <footer>© 2026 · All Rights Reserved</footer>
+    <footer>
+        © 2026 · All Rights Reserved
+    </footer>
 
-        <script>
-            // Custom Cursor
-            const cursor = document.querySelector(".cursor");
-            const links = document.querySelectorAll("a");
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const links = document.querySelectorAll('a');
 
-            document.addEventListener("mousemove", (e) => {
-                cursor.style.left = e.clientX + "px";
-                cursor.style.top = e.clientY + "px";
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
             });
-
-            links.forEach((link) => {
-                link.addEventListener("mouseenter", () => {
-                    cursor.classList.add("hover");
-                });
-                link.addEventListener("mouseleave", () => {
-                    cursor.classList.remove("hover");
-                });
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
             });
+        });
 
-            // Generate particles
-            function createParticles() {
-                const container = document.querySelector(
-                    ".background-container",
-                );
-                const particleCount = 30;
+        // Generate particles
+        function createParticles() {
+            const container = document.querySelector('.background-container');
+            const particleCount = 30;
 
-                for (let i = 0; i < particleCount; i++) {
-                    const particle = document.createElement("div");
-                    particle.classList.add("particle");
-                    particle.style.left = Math.random() * 100 + "%";
-                    particle.style.animationDelay = Math.random() * 15 + "s";
-                    particle.style.animationDuration =
-                        Math.random() * 10 + 10 + "s";
-                    container.appendChild(particle);
-                }
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                container.appendChild(particle);
             }
+        }
 
-            createParticles();
+        createParticles();
 
-            // Parallax effect on mouse move
-            document.addEventListener("mousemove", (e) => {
-                const orbs = document.querySelectorAll(".orb");
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
+        // Parallax effect on mouse move
+        document.addEventListener('mousemove', (e) => {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
 
-                orbs.forEach((orb, index) => {
-                    const speed = (index + 1) * 20;
-                    orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-                });
+            orbs.forEach((orb, index) => {
+                const speed = (index + 1) * 20;
+                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
             });
+        });
 
-            // Intersection Observer for scroll animations
-            const observerOptions = {
-                threshold: 0.2,
-                rootMargin: "0px 0px -100px 0px",
-            };
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add("visible");
-                        }, index * 100);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll(".log-entry").forEach((entry) => {
-                observer.observe(entry);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
             });
-        </script>
-    </body>
+        }, observerOptions);
+
+        document.querySelectorAll('.log-entry').forEach(entry => {
+            observer.observe(entry);
+        });
+    </script>
+</body>
 </html>
