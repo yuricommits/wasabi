@@ -1,1745 +1,1859 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Coming Soon</title>
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-        body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow-x: hidden;
-            cursor: none;
-            /* Hide scrollbar */
-            scrollbar-width: none; /* Firefox */
-            -ms-overflow-style: none; /* IE and Edge */
-        }
+            body {
+                font-family:
+                    "Space Grotesk",
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    "Segoe UI",
+                    Roboto,
+                    sans-serif;
+                background-color: #000;
+                color: #fff;
+                overflow-x: hidden;
+                cursor: none;
+                /* Hide scrollbar */
+                scrollbar-width: none; /* Firefox */
+                -ms-overflow-style: none; /* IE and Edge */
+            }
 
-        body::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera */
-        }
+            body::-webkit-scrollbar {
+                display: none; /* Chrome, Safari, Opera */
+            }
 
-        html {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
+            html {
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
 
-        html::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Smooth scaling for all elements */
-        * {
-            transition: font-size 0.3s ease, padding 0.3s ease, margin 0.3s ease;
-        }
-
-        /* Custom Minimalist Cursor */
-        .custom-cursor {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            background: #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10001;
-            mix-blend-mode: difference;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-        }
-
-        .custom-cursor-outline {
-            position: fixed;
-            width: 30px;
-            height: 30px;
-            border: 1px solid #fff;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            mix-blend-mode: difference;
-            transform: translate(-50%, -50%);
-            transition: width 0.3s ease, height 0.3s ease, opacity 0.2s ease;
-        }
-
-        /* Cursor hover states */
-        body.cursor-hover .custom-cursor {
-            width: 4px;
-            height: 4px;
-        }
-
-        body.cursor-hover .custom-cursor-outline {
-            width: 50px;
-            height: 50px;
-        }
-
-        /* Hide cursor on clickable elements */
-        a, button, input, textarea, select {
-            cursor: none;
-        }
-
-        /* Hide custom cursor on mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .custom-cursor,
-            .custom-cursor-outline {
+            html::-webkit-scrollbar {
                 display: none;
             }
-            
-            body, a, button, input, textarea, select {
-                cursor: auto !important;
+
+            /* Smooth scaling for all elements */
+            * {
+                transition:
+                    font-size 0.3s ease,
+                    padding 0.3s ease,
+                    margin 0.3s ease;
             }
-        }
 
-        /* Loading Screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-        }
-
-        .loading-screen.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .loading-container {
-            text-align: center;
-            position: relative;
-        }
-
-        /* Expanding Rings */
-        .loading-rings {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-        }
-
-        .loading-ring {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            animation: expandRing 3s ease-out infinite;
-        }
-
-        .loading-ring:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .loading-ring:nth-child(2) {
-            animation-delay: 1s;
-        }
-
-        .loading-ring:nth-child(3) {
-            animation-delay: 2s;
-        }
-
-        @keyframes expandRing {
-            0% {
-                width: 0;
-                height: 0;
-                opacity: 1;
+            /* Custom Minimalist Cursor */
+            .custom-cursor {
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: #fff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10001;
+                mix-blend-mode: difference;
+                transform: translate(-50%, -50%);
+                transition:
+                    width 0.3s ease,
+                    height 0.3s ease,
+                    opacity 0.3s ease;
             }
-            100% {
+
+            .custom-cursor-outline {
+                position: fixed;
+                width: 30px;
+                height: 30px;
+                border: 1px solid #fff;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 10000;
+                mix-blend-mode: difference;
+                transform: translate(-50%, -50%);
+                transition:
+                    width 0.3s ease,
+                    height 0.3s ease,
+                    opacity 0.2s ease;
+            }
+
+            /* Cursor hover states */
+            body.cursor-hover .custom-cursor {
+                width: 4px;
+                height: 4px;
+            }
+
+            body.cursor-hover .custom-cursor-outline {
+                width: 50px;
+                height: 50px;
+            }
+
+            /* Hide cursor on clickable elements */
+            a,
+            button,
+            input,
+            textarea,
+            select {
+                cursor: none;
+            }
+
+            /* Hide custom cursor on mobile */
+            @media (hover: none) and (pointer: coarse) {
+                .custom-cursor,
+                .custom-cursor-outline {
+                    display: none;
+                }
+
+                body,
+                a,
+                button,
+                input,
+                textarea,
+                select {
+                    cursor: auto !important;
+                }
+            }
+
+            /* Loading Screen */
+            .loading-screen {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: #000;
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    opacity 0.8s ease,
+                    visibility 0.8s ease;
+            }
+
+            .loading-screen.hidden {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .loading-container {
+                text-align: center;
+                position: relative;
+            }
+
+            /* Expanding Rings */
+            .loading-rings {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 width: 300px;
                 height: 300px;
+            }
+
+            .loading-ring {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                animation: expandRing 3s ease-out infinite;
+            }
+
+            .loading-ring:nth-child(1) {
+                animation-delay: 0s;
+            }
+
+            .loading-ring:nth-child(2) {
+                animation-delay: 1s;
+            }
+
+            .loading-ring:nth-child(3) {
+                animation-delay: 2s;
+            }
+
+            @keyframes expandRing {
+                0% {
+                    width: 0;
+                    height: 0;
+                    opacity: 1;
+                }
+                100% {
+                    width: 300px;
+                    height: 300px;
+                    opacity: 0;
+                }
+            }
+
+            /* Loading Counter */
+            .loading-counter {
+                font-size: clamp(4rem, 12vw, 8rem);
+                font-weight: 300;
+                letter-spacing: 0.1em;
+                margin-bottom: 30px;
+                background: linear-gradient(135deg, #fff 0%, #666 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                position: relative;
+                z-index: 10;
+            }
+
+            /* Loading Text */
+            .loading-text {
+                font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+                letter-spacing: 0.3em;
+                text-transform: uppercase;
+                color: #666;
+                overflow: hidden;
+                height: 1.5em;
+            }
+
+            .loading-word {
+                display: block;
+                animation: slideWords 6s infinite;
+            }
+
+            @keyframes slideWords {
+                0%,
+                25% {
+                    transform: translateY(0);
+                }
+                33%,
+                58% {
+                    transform: translateY(-100%);
+                }
+                66%,
+                91% {
+                    transform: translateY(-200%);
+                }
+                100% {
+                    transform: translateY(-300%);
+                }
+            }
+
+            /* Progress Bar */
+            .loading-progress {
+                position: absolute;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 300px;
+            }
+
+            .progress-bar-container {
+                width: 100%;
+                height: 1px;
+                background: rgba(255, 255, 255, 0.1);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .progress-bar-fill {
+                height: 100%;
+                background: #fff;
+                width: 0%;
+                transition: width 0.1s linear;
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            .progress-percentage {
+                font-size: 0.75rem;
+                letter-spacing: 0.2em;
+                color: #666;
+                margin-top: 15px;
+                text-align: center;
+            }
+
+            /* Morphing Shape */
+            .loading-morph {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 200px;
+                height: 200px;
+                border: 2px solid rgba(255, 255, 255, 0.1);
+                animation: morphShape 4s ease-in-out infinite;
+            }
+
+            @keyframes morphShape {
+                0%,
+                100% {
+                    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+                    transform: translate(-50%, -50%) rotate(0deg);
+                }
+                25% {
+                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                    transform: translate(-50%, -50%) rotate(90deg);
+                }
+                50% {
+                    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                    transform: translate(-50%, -50%) rotate(180deg);
+                }
+                75% {
+                    border-radius: 40% 60% 60% 40% / 60% 40% 40% 60%;
+                    transform: translate(-50%, -50%) rotate(270deg);
+                }
+            }
+
+            /* Glitch Lines */
+            .glitch-line {
+                position: absolute;
+                width: 100%;
+                height: 1px;
+                background: #fff;
                 opacity: 0;
+                animation: glitchAppear 3s infinite;
             }
-        }
 
-        /* Loading Counter */
-        .loading-counter {
-            font-size: clamp(4rem, 12vw, 8rem);
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-bottom: 30px;
-            background: linear-gradient(135deg, #fff 0%, #666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Loading Text */
-        .loading-text {
-            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: #666;
-            overflow: hidden;
-            height: 1.5em;
-        }
-
-        .loading-word {
-            display: block;
-            animation: slideWords 6s infinite;
-        }
-
-        @keyframes slideWords {
-            0%, 25% {
-                transform: translateY(0);
+            .glitch-line:nth-child(1) {
+                top: 30%;
+                animation-delay: 0.5s;
             }
-            33%, 58% {
-                transform: translateY(-100%);
+
+            .glitch-line:nth-child(2) {
+                top: 50%;
+                animation-delay: 1.5s;
             }
-            66%, 91% {
-                transform: translateY(-200%);
+
+            .glitch-line:nth-child(3) {
+                top: 70%;
+                animation-delay: 2.5s;
             }
-            100% {
-                transform: translateY(-300%);
+
+            @keyframes glitchAppear {
+                0%,
+                90%,
+                100% {
+                    opacity: 0;
+                    transform: scaleX(0);
+                }
+                92%,
+                96% {
+                    opacity: 0.3;
+                    transform: scaleX(1);
+                }
             }
-        }
 
-        /* Progress Bar */
-        .loading-progress {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: #fff;
-            width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .progress-percentage {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            color: #666;
-            margin-top: 15px;
-            text-align: center;
-        }
-
-        /* Morphing Shape */
-        .loading-morph {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 200px;
-            height: 200px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            animation: morphShape 4s ease-in-out infinite;
-        }
-
-        @keyframes morphShape {
-            0%, 100% {
-                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-                transform: translate(-50%, -50%) rotate(0deg);
+            /* Custom Cursor - Simplified */
+            /* Animated Background */
+            .background-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                overflow: hidden;
             }
-            25% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-                transform: translate(-50%, -50%) rotate(90deg);
+
+            .grid-lines {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background-image:
+                    linear-gradient(
+                        rgba(255, 255, 255, 0.03) 1px,
+                        transparent 1px
+                    ),
+                    linear-gradient(
+                        90deg,
+                        rgba(255, 255, 255, 0.03) 1px,
+                        transparent 1px
+                    );
+                background-size: 100px 100px;
+                animation: gridMove 20s linear infinite;
             }
-            50% {
-                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-                transform: translate(-50%, -50%) rotate(180deg);
+
+            @keyframes gridMove {
+                0% {
+                    transform: translate(0, 0);
+                }
+                100% {
+                    transform: translate(100px, 100px);
+                }
             }
-            75% {
-                border-radius: 40% 60% 60% 40% / 60% 40% 40% 60%;
-                transform: translate(-50%, -50%) rotate(270deg);
-            }
-        }
 
-        /* Glitch Lines */
-        .glitch-line {
-            position: absolute;
-            width: 100%;
-            height: 1px;
-            background: #fff;
-            opacity: 0;
-            animation: glitchAppear 3s infinite;
-        }
-
-        .glitch-line:nth-child(1) {
-            top: 30%;
-            animation-delay: 0.5s;
-        }
-
-        .glitch-line:nth-child(2) {
-            top: 50%;
-            animation-delay: 1.5s;
-        }
-
-        .glitch-line:nth-child(3) {
-            top: 70%;
-            animation-delay: 2.5s;
-        }
-
-        @keyframes glitchAppear {
-            0%, 90%, 100% {
-                opacity: 0;
-                transform: scaleX(0);
-            }
-            92%, 96% {
+            .orb {
+                position: absolute;
+                border-radius: 50%;
+                filter: blur(80px);
                 opacity: 0.3;
-                transform: scaleX(1);
+                animation: float 20s infinite ease-in-out;
             }
-        }
 
-        /* Custom Cursor - Simplified */
-        /* Animated Background */
-        .background-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .grid-lines {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% {
-                transform: translate(0, 0);
+            .orb:nth-child(1) {
+                width: 400px;
+                height: 400px;
+                background: radial-gradient(circle, #fff, transparent);
+                top: 10%;
+                left: 20%;
+                animation-delay: 0s;
             }
-            100% {
-                transform: translate(100px, 100px);
+
+            .orb:nth-child(2) {
+                width: 300px;
+                height: 300px;
+                background: radial-gradient(circle, #fff, transparent);
+                top: 60%;
+                right: 20%;
+                animation-delay: -7s;
             }
-        }
 
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.3;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .orb:nth-child(1) {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, #fff, transparent);
-            top: 10%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-
-        .orb:nth-child(2) {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, #fff, transparent);
-            top: 60%;
-            right: 20%;
-            animation-delay: -7s;
-        }
-
-        .orb:nth-child(3) {
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, #fff, transparent);
-            bottom: 10%;
-            left: 50%;
-            animation-delay: -14s;
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
+            .orb:nth-child(3) {
+                width: 350px;
+                height: 350px;
+                background: radial-gradient(circle, #fff, transparent);
+                bottom: 10%;
+                left: 50%;
+                animation-delay: -14s;
             }
-            33% {
-                transform: translate(50px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-30px, 30px) scale(0.9);
-            }
-        }
 
-        /* Particles */
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleFloat 15s infinite ease-in-out;
-        }
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translate(0, 0) scale(1);
+                }
+                33% {
+                    transform: translate(50px, -50px) scale(1.1);
+                }
+                66% {
+                    transform: translate(-30px, 30px) scale(0.9);
+                }
+            }
 
-        @keyframes particleFloat {
-            0% {
+            /* Particles */
+            .particle {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background: #fff;
+                border-radius: 50%;
                 opacity: 0;
-                transform: translateY(100vh) translateX(0);
+                animation: particleFloat 15s infinite ease-in-out;
             }
-            10% {
-                opacity: 0.5;
+
+            @keyframes particleFloat {
+                0% {
+                    opacity: 0;
+                    transform: translateY(100vh) translateX(0);
+                }
+                10% {
+                    opacity: 0.5;
+                }
+                90% {
+                    opacity: 0.5;
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-100px) translateX(100px);
+                }
             }
-            90% {
-                opacity: 0.5;
+
+            /* Main Content */
+            .container {
+                position: relative;
+                z-index: 10;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 40px 20px;
             }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) translateX(100px);
-            }
-        }
 
-        /* Main Content */
-        .container {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 40px 60px;
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-        }
-
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            padding: 10px 20px;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInDown 1s ease forwards 0.2s;
-        }
-
-        .nav-link:hover {
-            border: 1px solid #fff;
-        }
-
-        .hero-content {
-            text-align: center;
-            max-width: 1000px;
-        }
-
-        h1 {
-            font-size: clamp(3rem, 10vw, 8rem);
-            font-weight: 300;
-            letter-spacing: 0.2em;
-            line-height: 1.1;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.5s;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: clamp(1.2rem, 3vw, 1.8rem);
-            color: #aaa;
-            margin-bottom: 50px;
-            letter-spacing: 0.15em;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.7s;
-            font-weight: 300;
-            text-transform: uppercase;
-        }
-
-        .notify-form {
-            display: flex;
-            gap: 15px;
-            max-width: 500px;
-            margin: 0 auto 40px;
-            opacity: 0;
-            animation: fadeInUp 1s ease forwards 0.9s;
-        }
-
-        .notify-input {
-            flex: 1;
-            padding: 18px 25px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 1rem;
-            border-radius: 0;
-            outline: none;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .notify-input:focus {
-            border-color: #fff;
-            background-color: rgba(255, 255, 255, 0.08);
-        }
-
-        .notify-input::placeholder {
-            color: #666;
-        }
-
-        .notify-button {
-            padding: 18px 40px;
-            background-color: #fff;
-            color: #000;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            border-radius: 0;
-        }
-
-        .notify-button:hover {
-            background-color: #000;
-            color: #fff;
-            outline: 1px solid #fff;
-        }
-
-        .success-message {
-            display: none;
-            color: #fff;
-            font-weight: 500;
-            margin-top: 20px;
-        }
-
-        /* Scroll down indicator */
-        .scroll-down {
-            position: absolute;
-            bottom: 60px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 15px;
-            opacity: 0;
-            animation: fadeIn 1s ease forwards 1.5s;
-            cursor: pointer;
-            z-index: 100;
-        }
-
-        .scroll-down-text {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, #fff, transparent);
-            animation: scrollPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollPulse {
-            0%, 100% {
-                opacity: 0.3;
-                transform: translateY(0);
-            }
-            50% {
-                opacity: 1;
-                transform: translateY(10px);
-            }
-        }
-
-        /* Reveal Section with Parallax */
-        .reveal-section {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .reveal-content {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 1200px;
-            padding: 40px;
-        }
-
-        .reveal-line {
-            font-size: clamp(2.5rem, 7vw, 6rem);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            line-height: 1.3;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-line.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .reveal-line:nth-child(1) {
-            transition-delay: 0.2s;
-        }
-
-        .reveal-line:nth-child(2) {
-            transition-delay: 0.4s;
-            background: linear-gradient(90deg, #fff 0%, #888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .reveal-line:nth-child(3) {
-            transition-delay: 0.6s;
-        }
-
-        /* Parallax layers */
-        .parallax-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-
-        .floating-shape {
-            position: absolute;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-        }
-
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 20%;
-            left: 10%;
-            animation: floatShape1 15s ease-in-out infinite;
-        }
-
-        .shape-2 {
-            width: 200px;
-            height: 200px;
-            bottom: 20%;
-            right: 15%;
-            animation: floatShape2 12s ease-in-out infinite;
-        }
-
-        .shape-3 {
-            width: 150px;
-            height: 150px;
-            top: 60%;
-            left: 70%;
-            animation: floatShape3 18s ease-in-out infinite;
-        }
-
-        @keyframes floatShape1 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(30px, -40px) rotate(180deg);
-            }
-        }
-
-        @keyframes floatShape2 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(-40px, 30px) rotate(-180deg);
-            }
-        }
-
-        @keyframes floatShape3 {
-            0%, 100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-            50% {
-                transform: translate(20px, 50px) rotate(90deg);
-            }
-        }
-
-        /* Information Section - Parallax Stats */
-        .info-section {
-            position: relative;
-            padding: 0;
-        }
-
-        .stat-parallax-item {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .stat-background-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-bg-circle {
-            width: 400px;
-            height: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .stat-bg-circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-        }
-
-        .stat-bg-circle:nth-child(2) {
-            width: 500px;
-            height: 500px;
-        }
-
-        .stat-bg-circle:nth-child(3) {
-            width: 700px;
-            height: 700px;
-        }
-
-        .stat-content-layer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            max-width: 900px;
-            padding: 60px;
-            opacity: 0;
-            transform: translateY(50px) scale(0.95);
-            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .stat-parallax-item.in-view .stat-content-layer {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        .stat-number-large {
-            font-size: clamp(6rem, 15vw, 12rem);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-            line-height: 1;
-            margin-bottom: 40px;
-            background: linear-gradient(135deg, #fff 0%, #666 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0;
-            transform: scale(0.8);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
-        }
-
-        .stat-parallax-item.in-view .stat-number-large {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .stat-title {
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            font-weight: 300;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
-        }
-
-        .stat-parallax-item.in-view .stat-title {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stat-text {
-            font-size: clamp(1rem, 1.8vw, 1.3rem);
-            line-height: 1.8;
-            color: #888;
-            font-weight: 300;
-            max-width: 700px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
-        }
-
-        .stat-parallax-item.in-view .stat-text {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Parallax Depth Lines */
-        .depth-line {
-            position: absolute;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .stat-parallax-item.in-view .depth-line {
-            opacity: 1;
-        }
-
-        .depth-line-1 {
-            width: 60%;
-            top: 20%;
-            left: 20%;
-        }
-
-        .depth-line-2 {
-            width: 50%;
-            bottom: 30%;
-            right: 15%;
-        }
-
-        /* Second Section - Interactive Canvas */
-        .canvas-section {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .canvas-container {
-            position: relative;
-            width: 100%;
-            max-width: 1400px;
-            height: 80vh;
-            padding: 40px;
-        }
-
-        .morphing-shape {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-        }
-
-        .shape-layer {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            animation: morphShape 20s infinite ease-in-out;
-        }
-
-        .shape-layer:nth-child(1) {
-            animation-delay: 0s;
-            animation-duration: 15s;
-        }
-
-        .shape-layer:nth-child(2) {
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
-
-        .shape-layer:nth-child(3) {
-            animation-delay: -10s;
-            animation-duration: 25s;
-        }
-
-        @keyframes morphShape {
-            0%, 100% {
-                border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-                transform: rotate(0deg) scale(1);
-            }
-            25% {
-                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-                transform: rotate(90deg) scale(1.1);
-            }
-            50% {
-                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-                transform: rotate(180deg) scale(0.9);
-            }
-            75% {
-                border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
-                transform: rotate(270deg) scale(1.05);
-            }
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-        }
-
-        .float-item {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #fff;
-            border-radius: 50%;
-            opacity: 0;
-            animation: floatAround 30s infinite ease-in-out;
-        }
-
-        .float-item:nth-child(1) {
-            top: 20%;
-            left: 20%;
-            animation-delay: 0s;
-        }
-
-        .float-item:nth-child(2) {
-            top: 30%;
-            right: 25%;
-            animation-delay: -5s;
-        }
-
-        .float-item:nth-child(3) {
-            bottom: 25%;
-            left: 30%;
-            animation-delay: -10s;
-        }
-
-        .float-item:nth-child(4) {
-            bottom: 30%;
-            right: 20%;
-            animation-delay: -15s;
-        }
-
-        .float-item:nth-child(5) {
-            top: 50%;
-            left: 15%;
-            animation-delay: -20s;
-        }
-
-        .float-item:nth-child(6) {
-            top: 40%;
-            right: 15%;
-            animation-delay: -25s;
-        }
-
-        @keyframes floatAround {
-            0% {
-                opacity: 0;
-                transform: translate(0, 0) scale(1);
-            }
-            10% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 1;
-                transform: translate(100px, -150px) scale(2);
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50px, 100px) scale(0.5);
-            }
-        }
-
-        /* Interactive Fluid Simulation */
-        .reveal-text-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #fluidCanvas {
-            width: 100%;
-            height: 100%;
-            cursor: none;
-        }
-
-        /* Scroll Progress Indicator */
-        .scroll-progress {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 60px;
-            height: 60px;
-            z-index: 100;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .progress-ring {
-            transform: rotate(-90deg);
-        }
-
-        .progress-ring-circle {
-            stroke: rgba(255, 255, 255, 0.2);
-            fill: transparent;
-            stroke-width: 2;
-        }
-
-        .progress-ring-progress {
-            stroke: #fff;
-            fill: transparent;
-            stroke-width: 2;
-            stroke-dasharray: 157;
-            stroke-dashoffset: 157;
-            transition: stroke-dashoffset 0.3s ease;
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            padding: 60px 40px;
-            color: #666;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            50% {
-                transform: translateX(-50%) translateY(10px);
-            }
-        }
-
-        @media (max-width: 768px) {
             nav {
-                padding: 30px 20px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                padding: 40px 60px;
+                z-index: 100;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .nav-link {
+                color: #fff;
+                text-decoration: none;
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+                padding: 10px 20px;
+                border: 1px solid transparent;
+                transition: all 0.3s ease;
+                opacity: 0;
+                animation: fadeInDown 1s ease forwards 0.2s;
+            }
+
+            .nav-link:hover {
+                border: 1px solid #fff;
+            }
+
+            .hero-content {
+                text-align: center;
+                max-width: 1000px;
+            }
+
+            h1 {
+                font-size: clamp(3rem, 10vw, 8rem);
+                font-weight: 300;
+                letter-spacing: 0.2em;
+                line-height: 1.1;
+                margin-bottom: 30px;
+                opacity: 0;
+                animation: fadeInUp 1s ease forwards 0.5s;
+                text-transform: uppercase;
+            }
+
+            .subtitle {
+                font-size: clamp(1.2rem, 3vw, 1.8rem);
+                color: #aaa;
+                margin-bottom: 50px;
+                letter-spacing: 0.15em;
+                opacity: 0;
+                animation: fadeInUp 1s ease forwards 0.7s;
+                font-weight: 300;
+                text-transform: uppercase;
             }
 
             .notify-form {
+                display: flex;
+                gap: 15px;
+                max-width: 500px;
+                margin: 0 auto 40px;
+                opacity: 0;
+                animation: fadeInUp 1s ease forwards 0.9s;
+            }
+
+            .notify-input {
+                flex: 1;
+                padding: 18px 25px;
+                background-color: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: #fff;
+                font-size: 1rem;
+                border-radius: 0;
+                outline: none;
+                transition: all 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .notify-input:focus {
+                border-color: #fff;
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .notify-input::placeholder {
+                color: #666;
+            }
+
+            .notify-button {
+                padding: 18px 40px;
+                background-color: #fff;
+                color: #000;
+                border: none;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                letter-spacing: 1px;
+                border-radius: 0;
+            }
+
+            .notify-button:hover {
+                background-color: #000;
+                color: #fff;
+                outline: 1px solid #fff;
+            }
+
+            .success-message {
+                display: none;
+                color: #fff;
+                font-weight: 500;
+                margin-top: 20px;
+            }
+
+            /* Scroll down indicator */
+            .scroll-down {
+                position: absolute;
+                bottom: 60px;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
                 flex-direction: column;
+                align-items: center;
+                gap: 15px;
+                opacity: 0;
+                animation: fadeIn 1s ease forwards 1.5s;
+                cursor: pointer;
+                z-index: 100;
             }
 
-            body {
-                cursor: auto;
+            .scroll-down-text {
+                font-size: 0.75rem;
+                letter-spacing: 0.2em;
+                color: #666;
+                text-transform: uppercase;
             }
 
-            .cursor {
-                display: none;
+            .scroll-line {
+                width: 1px;
+                height: 60px;
+                background: linear-gradient(to bottom, #fff, transparent);
+                animation: scrollPulse 2s ease-in-out infinite;
             }
-        }
 
-        @media (hover: none) {
-            .cursor {
-                display: none;
+            @keyframes scrollPulse {
+                0%,
+                100% {
+                    opacity: 0.3;
+                    transform: translateY(0);
+                }
+                50% {
+                    opacity: 1;
+                    transform: translateY(10px);
+                }
             }
-            
-            body {
-                cursor: auto;
-            }
-        }
-    </style>
-</head>
-<body>
-    <!-- Custom Cursor -->
-    <div class="custom-cursor" id="customCursor"></div>
-    <div class="custom-cursor-outline" id="customCursorOutline"></div>
 
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loadingScreen">
-        <div class="glitch-line"></div>
-        <div class="glitch-line"></div>
-        <div class="glitch-line"></div>
-        
-        <div class="loading-morph"></div>
-        
-        <div class="loading-rings">
-            <div class="loading-ring"></div>
-            <div class="loading-ring"></div>
-            <div class="loading-ring"></div>
-        </div>
-        
-        <div class="loading-container">
-            <div class="loading-counter" id="loadingCounter">0</div>
-            <div class="loading-text">
-                <div class="loading-word">Initializing<br>Calibrating<br>Optimizing<br>Loading</div>
+            /* Reveal Section with Parallax */
+            .reveal-section {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .reveal-content {
+                position: relative;
+                z-index: 10;
+                text-align: center;
+                max-width: 1200px;
+                padding: 40px;
+            }
+
+            .reveal-line {
+                font-size: clamp(2.5rem, 7vw, 6rem);
+                font-weight: 300;
+                letter-spacing: 0.05em;
+                line-height: 1.3;
+                opacity: 0;
+                transform: translateY(100px);
+                transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .reveal-line.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .reveal-line:nth-child(1) {
+                transition-delay: 0.2s;
+            }
+
+            .reveal-line:nth-child(2) {
+                transition-delay: 0.4s;
+                background: linear-gradient(90deg, #fff 0%, #888 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .reveal-line:nth-child(3) {
+                transition-delay: 0.6s;
+            }
+
+            /* Parallax layers */
+            .parallax-layer {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                pointer-events: none;
+            }
+
+            .floating-shape {
+                position: absolute;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                transition: all 0.3s ease;
+            }
+
+            .shape-1 {
+                width: 300px;
+                height: 300px;
+                top: 20%;
+                left: 10%;
+                animation: floatShape1 15s ease-in-out infinite;
+            }
+
+            .shape-2 {
+                width: 200px;
+                height: 200px;
+                bottom: 20%;
+                right: 15%;
+                animation: floatShape2 12s ease-in-out infinite;
+            }
+
+            .shape-3 {
+                width: 150px;
+                height: 150px;
+                top: 60%;
+                left: 70%;
+                animation: floatShape3 18s ease-in-out infinite;
+            }
+
+            @keyframes floatShape1 {
+                0%,
+                100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                50% {
+                    transform: translate(30px, -40px) rotate(180deg);
+                }
+            }
+
+            @keyframes floatShape2 {
+                0%,
+                100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                50% {
+                    transform: translate(-40px, 30px) rotate(-180deg);
+                }
+            }
+
+            @keyframes floatShape3 {
+                0%,
+                100% {
+                    transform: translate(0, 0) rotate(0deg);
+                }
+                50% {
+                    transform: translate(20px, 50px) rotate(90deg);
+                }
+            }
+
+            /* Information Section - Parallax Stats */
+            .info-section {
+                position: relative;
+                padding: 0;
+            }
+
+            .stat-parallax-item {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .stat-background-layer {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .stat-bg-circle {
+                width: 400px;
+                height: 400px;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 50%;
+                position: absolute;
+            }
+
+            .stat-bg-circle:nth-child(1) {
+                width: 300px;
+                height: 300px;
+            }
+
+            .stat-bg-circle:nth-child(2) {
+                width: 500px;
+                height: 500px;
+            }
+
+            .stat-bg-circle:nth-child(3) {
+                width: 700px;
+                height: 700px;
+            }
+
+            .stat-content-layer {
+                position: relative;
+                z-index: 10;
+                text-align: center;
+                max-width: 900px;
+                padding: 60px;
+                opacity: 0;
+                transform: translateY(50px) scale(0.95);
+                transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .stat-parallax-item.in-view .stat-content-layer {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            .stat-number-large {
+                font-size: clamp(6rem, 15vw, 12rem);
+                font-weight: 300;
+                letter-spacing: 0.05em;
+                line-height: 1;
+                margin-bottom: 40px;
+                background: linear-gradient(135deg, #fff 0%, #666 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                opacity: 0;
+                transform: scale(0.8);
+                transition: all 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+            }
+
+            .stat-parallax-item.in-view .stat-number-large {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .stat-title {
+                font-size: clamp(1.5rem, 3vw, 2.5rem);
+                font-weight: 300;
+                letter-spacing: 0.15em;
+                text-transform: uppercase;
+                margin-bottom: 30px;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+            }
+
+            .stat-parallax-item.in-view .stat-title {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .stat-text {
+                font-size: clamp(1rem, 1.8vw, 1.3rem);
+                line-height: 1.8;
+                color: #888;
+                font-weight: 300;
+                max-width: 700px;
+                margin: 0 auto;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
+            }
+
+            .stat-parallax-item.in-view .stat-text {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Parallax Depth Lines */
+            .depth-line {
+                position: absolute;
+                height: 1px;
+                background: linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+                );
+                opacity: 0;
+                transition: opacity 0.8s ease;
+            }
+
+            .stat-parallax-item.in-view .depth-line {
+                opacity: 1;
+            }
+
+            .depth-line-1 {
+                width: 60%;
+                top: 20%;
+                left: 20%;
+            }
+
+            .depth-line-2 {
+                width: 50%;
+                bottom: 30%;
+                right: 15%;
+            }
+
+            /* Second Section - Interactive Canvas */
+            .canvas-section {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .canvas-container {
+                position: relative;
+                width: 100%;
+                max-width: 1400px;
+                height: 80vh;
+                padding: 40px;
+            }
+
+            .morphing-shape {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 600px;
+            }
+
+            .shape-layer {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                animation: morphShape 20s infinite ease-in-out;
+            }
+
+            .shape-layer:nth-child(1) {
+                animation-delay: 0s;
+                animation-duration: 15s;
+            }
+
+            .shape-layer:nth-child(2) {
+                animation-delay: -5s;
+                animation-duration: 20s;
+            }
+
+            .shape-layer:nth-child(3) {
+                animation-delay: -10s;
+                animation-duration: 25s;
+            }
+
+            @keyframes morphShape {
+                0%,
+                100% {
+                    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+                    transform: rotate(0deg) scale(1);
+                }
+                25% {
+                    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                    transform: rotate(90deg) scale(1.1);
+                }
+                50% {
+                    border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+                    transform: rotate(180deg) scale(0.9);
+                }
+                75% {
+                    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+                    transform: rotate(270deg) scale(1.05);
+                }
+            }
+
+            .floating-elements {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+            }
+
+            .float-item {
+                position: absolute;
+                width: 3px;
+                height: 3px;
+                background: #fff;
+                border-radius: 50%;
+                opacity: 0;
+                animation: floatAround 30s infinite ease-in-out;
+            }
+
+            .float-item:nth-child(1) {
+                top: 20%;
+                left: 20%;
+                animation-delay: 0s;
+            }
+
+            .float-item:nth-child(2) {
+                top: 30%;
+                right: 25%;
+                animation-delay: -5s;
+            }
+
+            .float-item:nth-child(3) {
+                bottom: 25%;
+                left: 30%;
+                animation-delay: -10s;
+            }
+
+            .float-item:nth-child(4) {
+                bottom: 30%;
+                right: 20%;
+                animation-delay: -15s;
+            }
+
+            .float-item:nth-child(5) {
+                top: 50%;
+                left: 15%;
+                animation-delay: -20s;
+            }
+
+            .float-item:nth-child(6) {
+                top: 40%;
+                right: 15%;
+                animation-delay: -25s;
+            }
+
+            @keyframes floatAround {
+                0% {
+                    opacity: 0;
+                    transform: translate(0, 0) scale(1);
+                }
+                10% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 1;
+                    transform: translate(100px, -150px) scale(2);
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0;
+                    transform: translate(-50px, 100px) scale(0.5);
+                }
+            }
+
+            /* Interactive Fluid Simulation */
+            .reveal-text-container {
+                position: relative;
+                z-index: 10;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #fluidCanvas {
+                width: 100%;
+                height: 100%;
+                cursor: none;
+            }
+
+            /* Scroll Progress Indicator */
+            .scroll-progress {
+                position: fixed;
+                bottom: 40px;
+                right: 40px;
+                width: 60px;
+                height: 60px;
+                z-index: 100;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .progress-ring {
+                transform: rotate(-90deg);
+            }
+
+            .progress-ring-circle {
+                stroke: rgba(255, 255, 255, 0.2);
+                fill: transparent;
+                stroke-width: 2;
+            }
+
+            .progress-ring-progress {
+                stroke: #fff;
+                fill: transparent;
+                stroke-width: 2;
+                stroke-dasharray: 157;
+                stroke-dashoffset: 157;
+                transition: stroke-dashoffset 0.3s ease;
+            }
+
+            /* Footer */
+            footer {
+                position: relative;
+                z-index: 10;
+                text-align: center;
+                padding: 60px 40px;
+                color: #666;
+                font-size: 0.85rem;
+                letter-spacing: 1px;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes fadeIn {
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                }
+                50% {
+                    transform: translateX(-50%) translateY(10px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                nav {
+                    padding: 30px 20px;
+                }
+
+                .notify-form {
+                    flex-direction: column;
+                }
+
+                body {
+                    cursor: auto;
+                }
+
+                .cursor {
+                    display: none;
+                }
+            }
+
+            @media (hover: none) {
+                .cursor {
+                    display: none;
+                }
+
+                body {
+                    cursor: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Custom Cursor -->
+        <div class="custom-cursor" id="customCursor"></div>
+        <div class="custom-cursor-outline" id="customCursorOutline"></div>
+
+        <!-- Loading Screen -->
+        <div class="loading-screen" id="loadingScreen">
+            <div class="glitch-line"></div>
+            <div class="glitch-line"></div>
+            <div class="glitch-line"></div>
+
+            <div class="loading-morph"></div>
+
+            <div class="loading-rings">
+                <div class="loading-ring"></div>
+                <div class="loading-ring"></div>
+                <div class="loading-ring"></div>
             </div>
-        </div>
 
-        <div class="loading-progress">
-            <div class="progress-bar-container">
-                <div class="progress-bar-fill" id="progressBar"></div>
+            <div class="loading-container">
+                <div class="loading-counter" id="loadingCounter">0</div>
+                <div class="loading-text">
+                    <div class="loading-word">
+                        Initializing<br />Calibrating<br />Optimizing<br />Loading
+                    </div>
+                </div>
             </div>
-            <div class="progress-percentage" id="progressPercentage">0%</div>
-        </div>
-    </div>
 
-    <div class="background-container">
-        <div class="grid-lines"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-        <div class="orb"></div>
-    </div>
-
-    <nav>
-        <div class="logo"></div>
-        <div style="display: flex; gap: 30px;">
-            <a href="vision.html" class="nav-link">Vision</a>
-            <a href="news.html" class="nav-link">News</a>
-        </div>
-    </nav>
-
-    <div class="container">
-        <div class="hero-content">
-            <h1>COMING SOON</h1>
-            <p class="subtitle">Something extraordinary is in development</p>
-            
-            <form class="notify-form" id="notifyForm">
-                <input 
-                    type="email" 
-                    class="notify-input" 
-                    placeholder="your@email.com" 
-                    required
-                    id="emailInput"
-                >
-                <button type="submit" class="notify-button">NOTIFY ME</button>
-            </form>
-            
-            <div class="success-message" id="successMessage">
-                Thank you. We'll be in touch.
-            </div>
-        </div>
-
-        <!-- Scroll Down Indicator -->
-        <div class="scroll-down" id="scrollDown">
-            <span class="scroll-down-text">Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </div>
-
-    <!-- Reveal Section -->
-    <section class="reveal-section">
-        <div class="parallax-layer" id="parallaxLayer">
-            <div class="floating-shape shape-1"></div>
-            <div class="floating-shape shape-2"></div>
-            <div class="floating-shape shape-3"></div>
-        </div>
-        <div class="reveal-content">
-            <div class="reveal-line">The most advanced</div>
-            <div class="reveal-line">Spaced Recognition</div>
-            <div class="reveal-line">System</div>
-        </div>
-    </section>
-
-    <!-- Information & Stats Section -->
-    <section class="info-section">
-        <!-- Stat 1: 10× -->
-        <div class="stat-parallax-item" data-stat="1">
-            <div class="stat-background-layer" data-speed="0.3">
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
-            </div>
-            <div class="depth-line depth-line-1" data-speed="0.5"></div>
-            <div class="depth-line depth-line-2" data-speed="0.4"></div>
-            <div class="stat-content-layer" data-speed="0.1">
-                <div class="stat-number-large">10×</div>
-                <div class="stat-title">Faster Retention</div>
-                <div class="stat-text">
-                    Optimized intervals maximize learning efficiency, reducing study time while enhancing long-term memory consolidation through scientifically proven spacing algorithms.
+            <div class="loading-progress">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                </div>
+                <div class="progress-percentage" id="progressPercentage">
+                    0%
                 </div>
             </div>
         </div>
 
-        <!-- Stat 2: 99.9% -->
-        <div class="stat-parallax-item" data-stat="2">
-            <div class="stat-background-layer" data-speed="0.3">
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
+        <div class="background-container">
+            <div class="grid-lines"></div>
+            <div class="orb"></div>
+            <div class="orb"></div>
+            <div class="orb"></div>
+        </div>
+
+        <nav>
+            <div class="logo"></div>
+            <div style="display: flex; gap: 30px">
+                <a href="vision.html" class="nav-link">Vision</a>
+                <a href="news.html" class="nav-link">News</a>
             </div>
-            <div class="depth-line depth-line-1" data-speed="0.5"></div>
-            <div class="depth-line depth-line-2" data-speed="0.4"></div>
-            <div class="stat-content-layer" data-speed="0.1">
-                <div class="stat-number-large">99.9%</div>
-                <div class="stat-title">Precision</div>
-                <div class="stat-text">
-                    Advanced algorithms analyze patterns with near-perfect accuracy, ensuring optimal timing for every review through continuous pattern recognition and adaptive learning.
+        </nav>
+
+        <div class="container">
+            <div class="hero-content">
+                <h1>COMING SOON</h1>
+                <p class="subtitle">
+                    Something extraordinary is in development
+                </p>
+
+                <form class="notify-form" id="notifyForm">
+                    <input
+                        type="email"
+                        class="notify-input"
+                        placeholder="your@email.com"
+                        required
+                        id="emailInput"
+                    />
+                    <button type="submit" class="notify-button">
+                        NOTIFY ME
+                    </button>
+                </form>
+
+                <div class="success-message" id="successMessage">
+                    Thank you. We'll be in touch.
                 </div>
             </div>
+
+            <!-- Scroll Down Indicator -->
+            <div class="scroll-down" id="scrollDown">
+                <span class="scroll-down-text">Scroll</span>
+                <div class="scroll-line"></div>
+            </div>
         </div>
 
-        <!-- Stat 3: ∞ -->
-        <div class="stat-parallax-item" data-stat="3">
-            <div class="stat-background-layer" data-speed="0.3">
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
-                <div class="stat-bg-circle"></div>
+        <!-- Reveal Section -->
+        <section class="reveal-section">
+            <div class="parallax-layer" id="parallaxLayer">
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
             </div>
-            <div class="depth-line depth-line-1" data-speed="0.5"></div>
-            <div class="depth-line depth-line-2" data-speed="0.4"></div>
-            <div class="stat-content-layer" data-speed="0.1">
-                <div class="stat-number-large">∞</div>
-                <div class="stat-title">Infinite Adaptation</div>
-                <div class="stat-text">
-                    Continuously evolves with your unique learning patterns, providing personalized optimization at every stage through intelligent analysis and real-time adjustments.
+            <div class="reveal-content">
+                <div class="reveal-line">The most advanced</div>
+                <div class="reveal-line">Spaced Repetition</div>
+                <div class="reveal-line">System</div>
+            </div>
+        </section>
+
+        <!-- Information & Stats Section -->
+        <section class="info-section">
+            <!-- Stat 1: 10× -->
+            <div class="stat-parallax-item" data-stat="1">
+                <div class="stat-background-layer" data-speed="0.3">
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                </div>
+                <div class="depth-line depth-line-1" data-speed="0.5"></div>
+                <div class="depth-line depth-line-2" data-speed="0.4"></div>
+                <div class="stat-content-layer" data-speed="0.1">
+                    <div class="stat-number-large">10×</div>
+                    <div class="stat-title">Faster Retention</div>
+                    <div class="stat-text">
+                        Optimized intervals maximize learning efficiency,
+                        reducing study time while enhancing long-term memory
+                        consolidation through scientifically proven spacing
+                        algorithms.
+                    </div>
                 </div>
             </div>
+
+            <!-- Stat 2: 99.9% -->
+            <div class="stat-parallax-item" data-stat="2">
+                <div class="stat-background-layer" data-speed="0.3">
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                </div>
+                <div class="depth-line depth-line-1" data-speed="0.5"></div>
+                <div class="depth-line depth-line-2" data-speed="0.4"></div>
+                <div class="stat-content-layer" data-speed="0.1">
+                    <div class="stat-number-large">99.9%</div>
+                    <div class="stat-title">Precision</div>
+                    <div class="stat-text">
+                        Advanced algorithms analyze patterns with near-perfect
+                        accuracy, ensuring optimal timing for every review
+                        through continuous pattern recognition and adaptive
+                        learning.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stat 3: ∞ -->
+            <div class="stat-parallax-item" data-stat="3">
+                <div class="stat-background-layer" data-speed="0.3">
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                    <div class="stat-bg-circle"></div>
+                </div>
+                <div class="depth-line depth-line-1" data-speed="0.5"></div>
+                <div class="depth-line depth-line-2" data-speed="0.4"></div>
+                <div class="stat-content-layer" data-speed="0.1">
+                    <div class="stat-number-large">∞</div>
+                    <div class="stat-title">Infinite Adaptation</div>
+                    <div class="stat-text">
+                        Continuously evolves with your unique learning patterns,
+                        providing personalized optimization at every stage
+                        through intelligent analysis and real-time adjustments.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Canvas Section -->
+        <section class="canvas-section">
+            <div class="canvas-container">
+                <div class="morphing-shape">
+                    <div class="shape-layer"></div>
+                    <div class="shape-layer"></div>
+                    <div class="shape-layer"></div>
+                </div>
+
+                <div class="floating-elements">
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                    <div class="float-item"></div>
+                </div>
+
+                <div class="reveal-text-container">
+                    <canvas id="fluidCanvas"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scroll Progress -->
+        <div class="scroll-progress">
+            <svg class="progress-ring" width="60" height="60">
+                <circle
+                    class="progress-ring-circle"
+                    cx="30"
+                    cy="30"
+                    r="25"
+                ></circle>
+                <circle
+                    class="progress-ring-progress"
+                    cx="30"
+                    cy="30"
+                    r="25"
+                ></circle>
+            </svg>
         </div>
-    </section>
 
-    <!-- Interactive Canvas Section -->
-    <section class="canvas-section">
-        <div class="canvas-container">
-            <div class="morphing-shape">
-                <div class="shape-layer"></div>
-                <div class="shape-layer"></div>
-                <div class="shape-layer"></div>
-            </div>
-            
-            <div class="floating-elements">
-                <div class="float-item"></div>
-                <div class="float-item"></div>
-                <div class="float-item"></div>
-                <div class="float-item"></div>
-                <div class="float-item"></div>
-                <div class="float-item"></div>
-            </div>
+        <!-- Footer -->
+        <footer>© 2026 · All Rights Reserved</footer>
 
-            <div class="reveal-text-container">
-                <canvas id="fluidCanvas"></canvas>
-            </div>
-        </div>
-    </section>
+        <script>
+            // Custom Cursor
+            const customCursor = document.getElementById("customCursor");
+            const customCursorOutline = document.getElementById(
+                "customCursorOutline",
+            );
+            let cursorX = 0;
+            let cursorY = 0;
+            let outlineX = 0;
+            let outlineY = 0;
 
-    <!-- Scroll Progress -->
-    <div class="scroll-progress">
-        <svg class="progress-ring" width="60" height="60">
-            <circle class="progress-ring-circle" cx="30" cy="30" r="25"></circle>
-            <circle class="progress-ring-progress" cx="30" cy="30" r="25"></circle>
-        </svg>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        © 2026 · All Rights Reserved
-    </footer>
-
-    <script>
-        // Custom Cursor
-        const customCursor = document.getElementById('customCursor');
-        const customCursorOutline = document.getElementById('customCursorOutline');
-        let cursorX = 0;
-        let cursorY = 0;
-        let outlineX = 0;
-        let outlineY = 0;
-
-        // Update cursor position
-        document.addEventListener('mousemove', (e) => {
-            cursorX = e.clientX;
-            cursorY = e.clientY;
-        });
-
-        // Smooth cursor animation
-        function animateCursor() {
-            // Inner cursor follows immediately
-            customCursor.style.left = cursorX + 'px';
-            customCursor.style.top = cursorY + 'px';
-
-            // Outline follows with delay for smooth effect
-            outlineX += (cursorX - outlineX) * 0.15;
-            outlineY += (cursorY - outlineY) * 0.15;
-            
-            customCursorOutline.style.left = outlineX + 'px';
-            customCursorOutline.style.top = outlineY + 'px';
-
-            requestAnimationFrame(animateCursor);
-        }
-
-        animateCursor();
-
-        // Hover effect on interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, input, textarea, select, .notify-button, .nav-link');
-        
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                document.body.classList.add('cursor-hover');
+            // Update cursor position
+            document.addEventListener("mousemove", (e) => {
+                cursorX = e.clientX;
+                cursorY = e.clientY;
             });
-            
-            el.addEventListener('mouseleave', () => {
-                document.body.classList.remove('cursor-hover');
-            });
-        });
 
-        // Loading Screen Animation - Only on First Visit
-        window.addEventListener('load', () => {
-            const loadingScreen = document.getElementById('loadingScreen');
-            const counter = document.getElementById('loadingCounter');
-            const progressBar = document.getElementById('progressBar');
-            const progressPercentage = document.getElementById('progressPercentage');
-            
-            // Check if user has visited before
-            const hasVisited = localStorage.getItem('hasVisitedSRS');
-            
-            if (!hasVisited) {
-                // First visit - show loading screen
-                document.body.style.overflow = 'hidden';
-                
-                // Delay before starting (1 second to appreciate animations)
-                setTimeout(() => {
-                    let count = 0;
-                    const duration = 2500; // 2.5 seconds
-                    const increment = 100 / (duration / 16); // Update every frame (16ms)
-                    
-                    const counterInterval = setInterval(() => {
-                        count += increment;
-                        
-                        if (count >= 100) {
-                            count = 100;
-                            clearInterval(counterInterval);
-                            
-                            // Delay after reaching 100% (1.5 seconds to savor completion)
-                            setTimeout(() => {
-                                loadingScreen.classList.add('hidden');
-                                document.body.style.overflow = 'auto';
-                                // Mark as visited
-                                localStorage.setItem('hasVisitedSRS', 'true');
-                            }, 1500);
-                        }
-                        
-                        // Update counter with easing
-                        const displayCount = Math.floor(count);
-                        counter.textContent = displayCount;
-                        progressBar.style.width = count + '%';
-                        progressPercentage.textContent = displayCount + '%';
-                    }, 16);
-                }, 1000); // 1 second delay before starting
-            } else {
-                // Returning visit - hide loading screen immediately
-                loadingScreen.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            }
-        });
+            // Smooth cursor animation
+            function animateCursor() {
+                // Inner cursor follows immediately
+                customCursor.style.left = cursorX + "px";
+                customCursor.style.top = cursorY + "px";
 
-        // Generate particles
-        function createParticles() {
-            const container = document.querySelector('.background-container');
-            const particleCount = 30;
+                // Outline follows with delay for smooth effect
+                outlineX += (cursorX - outlineX) * 0.15;
+                outlineY += (cursorY - outlineY) * 0.15;
 
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 15 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
-                container.appendChild(particle);
-            }
-        }
+                customCursorOutline.style.left = outlineX + "px";
+                customCursorOutline.style.top = outlineY + "px";
 
-        createParticles();
-
-        // Scroll down indicator click
-        document.getElementById('scrollDown').addEventListener('click', () => {
-            document.querySelector('.reveal-section').scrollIntoView({ 
-                behavior: 'smooth' 
-            });
-        });
-
-        // Parallax scroll effect for all sections
-        let autoScrolling = false;
-        let autoScrollComplete = false;
-
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            
-            // Reveal section parallax
-            const parallaxLayer = document.getElementById('parallaxLayer');
-            if (parallaxLayer) {
-                parallaxLayer.style.transform = `translateY(${scrolled * 0.5}px)`;
+                requestAnimationFrame(animateCursor);
             }
 
-            // Reveal lines animation
-            const revealSection = document.querySelector('.reveal-section');
-            const revealLines = document.querySelectorAll('.reveal-line');
-            
-            if (revealSection && !autoScrolling && !autoScrollComplete) {
-                const sectionTop = revealSection.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (sectionTop < windowHeight * 0.75) {
-                    revealLines.forEach(line => {
-                        line.classList.add('visible');
+            animateCursor();
+
+            // Hover effect on interactive elements
+            const interactiveElements = document.querySelectorAll(
+                "a, button, input, textarea, select, .notify-button, .nav-link",
+            );
+
+            interactiveElements.forEach((el) => {
+                el.addEventListener("mouseenter", () => {
+                    document.body.classList.add("cursor-hover");
+                });
+
+                el.addEventListener("mouseleave", () => {
+                    document.body.classList.remove("cursor-hover");
+                });
+            });
+
+            // Loading Screen Animation - Only on First Visit
+            window.addEventListener("load", () => {
+                const loadingScreen = document.getElementById("loadingScreen");
+                const counter = document.getElementById("loadingCounter");
+                const progressBar = document.getElementById("progressBar");
+                const progressPercentage =
+                    document.getElementById("progressPercentage");
+
+                // Check if user has visited before
+                const hasVisited = localStorage.getItem("hasVisitedSRS");
+
+                if (!hasVisited) {
+                    // First visit - show loading screen
+                    document.body.style.overflow = "hidden";
+
+                    // Delay before starting (1 second to appreciate animations)
+                    setTimeout(() => {
+                        let count = 0;
+                        const duration = 2500; // 2.5 seconds
+                        const increment = 100 / (duration / 16); // Update every frame (16ms)
+
+                        const counterInterval = setInterval(() => {
+                            count += increment;
+
+                            if (count >= 100) {
+                                count = 100;
+                                clearInterval(counterInterval);
+
+                                // Delay after reaching 100% (1.5 seconds to savor completion)
+                                setTimeout(() => {
+                                    loadingScreen.classList.add("hidden");
+                                    document.body.style.overflow = "auto";
+                                    // Mark as visited
+                                    localStorage.setItem(
+                                        "hasVisitedSRS",
+                                        "true",
+                                    );
+                                }, 1500);
+                            }
+
+                            // Update counter with easing
+                            const displayCount = Math.floor(count);
+                            counter.textContent = displayCount;
+                            progressBar.style.width = count + "%";
+                            progressPercentage.textContent = displayCount + "%";
+                        }, 16);
+                    }, 1000); // 1 second delay before starting
+                } else {
+                    // Returning visit - hide loading screen immediately
+                    loadingScreen.classList.add("hidden");
+                    document.body.style.overflow = "auto";
+                }
+            });
+
+            // Generate particles
+            function createParticles() {
+                const container = document.querySelector(
+                    ".background-container",
+                );
+                const particleCount = 30;
+
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement("div");
+                    particle.classList.add("particle");
+                    particle.style.left = Math.random() * 100 + "%";
+                    particle.style.animationDelay = Math.random() * 15 + "s";
+                    particle.style.animationDuration =
+                        Math.random() * 10 + 10 + "s";
+                    container.appendChild(particle);
+                }
+            }
+
+            createParticles();
+
+            // Scroll down indicator click
+            document
+                .getElementById("scrollDown")
+                .addEventListener("click", () => {
+                    document.querySelector(".reveal-section").scrollIntoView({
+                        behavior: "smooth",
                     });
-                }
-
-                // Check if reveal section is centered
-                const sectionCenter = sectionTop + (revealSection.offsetHeight / 2);
-                const viewportCenter = windowHeight / 2;
-                const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
-
-                // If reveal section is centered (within 50px tolerance)
-                if (distanceFromCenter < 50 && !autoScrollComplete) {
-                    autoScrolling = true;
-                    startCinematicScroll();
-                }
-            }
-
-            // Stats parallax depth effect (only when not auto-scrolling)
-            if (!autoScrolling) {
-                updateStatsParallax(scrolled);
-            }
-        });
-
-        function updateStatsParallax(scrolled) {
-            const statItems = document.querySelectorAll('.stat-parallax-item');
-            statItems.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const itemCenter = rect.top + rect.height / 2;
-                const windowCenter = window.innerHeight / 2;
-                const distanceFromCenter = itemCenter - windowCenter;
-                
-                // Activate when in view
-                if (rect.top < window.innerHeight * 0.7 && rect.bottom > window.innerHeight * 0.3) {
-                    item.classList.add('in-view');
-                } else {
-                    item.classList.remove('in-view');
-                }
-                
-                // Parallax layers at different speeds
-                const bgLayer = item.querySelector('.stat-background-layer');
-                const contentLayer = item.querySelector('.stat-content-layer');
-                const depthLines = item.querySelectorAll('.depth-line');
-                
-                if (bgLayer) {
-                    const bgSpeed = 0.3;
-                    bgLayer.style.transform = `translateY(${distanceFromCenter * bgSpeed}px)`;
-                }
-                
-                if (contentLayer) {
-                    const contentSpeed = 0.1;
-                    contentLayer.style.transform = `translateY(${distanceFromCenter * contentSpeed}px)`;
-                }
-                
-                depthLines.forEach((line, index) => {
-                    const lineSpeed = 0.4 + (index * 0.1);
-                    line.style.transform = `translateY(${distanceFromCenter * lineSpeed}px)`;
                 });
-                
-                // Rotate background circles based on scroll position
-                const circles = item.querySelectorAll('.stat-bg-circle');
-                circles.forEach((circle, index) => {
-                    const rotation = scrolled * (0.05 + index * 0.02);
-                    circle.style.transform = `rotate(${rotation}deg)`;
+
+            // Parallax scroll effect for all sections
+            let autoScrolling = false;
+            let autoScrollComplete = false;
+
+            window.addEventListener("scroll", () => {
+                const scrolled = window.pageYOffset;
+
+                // Reveal section parallax
+                const parallaxLayer = document.getElementById("parallaxLayer");
+                if (parallaxLayer) {
+                    parallaxLayer.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+
+                // Reveal lines animation
+                const revealSection = document.querySelector(".reveal-section");
+                const revealLines = document.querySelectorAll(".reveal-line");
+
+                if (revealSection && !autoScrolling && !autoScrollComplete) {
+                    const sectionTop =
+                        revealSection.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+
+                    if (sectionTop < windowHeight * 0.75) {
+                        revealLines.forEach((line) => {
+                            line.classList.add("visible");
+                        });
+                    }
+
+                    // Check if reveal section is centered
+                    const sectionCenter =
+                        sectionTop + revealSection.offsetHeight / 2;
+                    const viewportCenter = windowHeight / 2;
+                    const distanceFromCenter = Math.abs(
+                        sectionCenter - viewportCenter,
+                    );
+
+                    // If reveal section is centered (within 50px tolerance)
+                    if (distanceFromCenter < 50 && !autoScrollComplete) {
+                        autoScrolling = true;
+                        startCinematicScroll();
+                    }
+                }
+
+                // Stats parallax depth effect (only when not auto-scrolling)
+                if (!autoScrolling) {
+                    updateStatsParallax(scrolled);
+                }
+            });
+
+            function updateStatsParallax(scrolled) {
+                const statItems = document.querySelectorAll(
+                    ".stat-parallax-item",
+                );
+                statItems.forEach((item) => {
+                    const rect = item.getBoundingClientRect();
+                    const itemCenter = rect.top + rect.height / 2;
+                    const windowCenter = window.innerHeight / 2;
+                    const distanceFromCenter = itemCenter - windowCenter;
+
+                    // Activate when in view
+                    if (
+                        rect.top < window.innerHeight * 0.7 &&
+                        rect.bottom > window.innerHeight * 0.3
+                    ) {
+                        item.classList.add("in-view");
+                    } else {
+                        item.classList.remove("in-view");
+                    }
+
+                    // Parallax layers at different speeds
+                    const bgLayer = item.querySelector(
+                        ".stat-background-layer",
+                    );
+                    const contentLayer = item.querySelector(
+                        ".stat-content-layer",
+                    );
+                    const depthLines = item.querySelectorAll(".depth-line");
+
+                    if (bgLayer) {
+                        const bgSpeed = 0.3;
+                        bgLayer.style.transform = `translateY(${distanceFromCenter * bgSpeed}px)`;
+                    }
+
+                    if (contentLayer) {
+                        const contentSpeed = 0.1;
+                        contentLayer.style.transform = `translateY(${distanceFromCenter * contentSpeed}px)`;
+                    }
+
+                    depthLines.forEach((line, index) => {
+                        const lineSpeed = 0.4 + index * 0.1;
+                        line.style.transform = `translateY(${distanceFromCenter * lineSpeed}px)`;
+                    });
+
+                    // Rotate background circles based on scroll position
+                    const circles = item.querySelectorAll(".stat-bg-circle");
+                    circles.forEach((circle, index) => {
+                        const rotation = scrolled * (0.05 + index * 0.02);
+                        circle.style.transform = `rotate(${rotation}deg)`;
+                    });
+                });
+            }
+
+            function startCinematicScroll() {
+                // Disable manual scroll temporarily
+                document.body.style.overflow = "hidden";
+
+                // Get the info section (stats section)
+                const infoSection = document.querySelector(".info-section");
+                const startPosition = window.pageYOffset;
+                const targetPosition =
+                    infoSection.offsetTop + infoSection.offsetHeight * 0.8;
+                const distance = targetPosition - startPosition;
+                const duration = 4000; // 4 seconds slow scroll
+                const startTime = performance.now();
+
+                function smoothScroll(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Easing function for smooth deceleration
+                    const easeOutCubic = 1 - Math.pow(1 - progress, 3);
+
+                    const newPosition = startPosition + distance * easeOutCubic;
+                    window.scrollTo(0, newPosition);
+
+                    // Update parallax during auto-scroll
+                    updateStatsParallax(newPosition);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(smoothScroll);
+                    } else {
+                        // Re-enable manual scroll
+                        document.body.style.overflow = "auto";
+                        autoScrolling = false;
+                        autoScrollComplete = true;
+                    }
+                }
+
+                requestAnimationFrame(smoothScroll);
+            }
+
+            // Form submission
+            document
+                .getElementById("notifyForm")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const email = document.getElementById("emailInput").value;
+                    const successMessage =
+                        document.getElementById("successMessage");
+                    const form = document.getElementById("notifyForm");
+
+                    console.log("Email submitted:", email);
+
+                    form.style.display = "none";
+                    successMessage.style.display = "block";
+
+                    setTimeout(() => {
+                        form.style.display = "flex";
+                        successMessage.style.display = "none";
+                        document.getElementById("emailInput").value = "";
+                    }, 3000);
+                });
+
+            // Parallax effect on mouse move for orbs
+            document.addEventListener("mousemove", (e) => {
+                const orbs = document.querySelectorAll(".orb");
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+
+                orbs.forEach((orb, index) => {
+                    const speed = (index + 1) * 20;
+                    orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
                 });
             });
-        }
 
-        function startCinematicScroll() {
-            // Disable manual scroll temporarily
-            document.body.style.overflow = 'hidden';
-            
-            // Get the info section (stats section)
-            const infoSection = document.querySelector('.info-section');
-            const startPosition = window.pageYOffset;
-            const targetPosition = infoSection.offsetTop + (infoSection.offsetHeight * 0.8);
-            const distance = targetPosition - startPosition;
-            const duration = 4000; // 4 seconds slow scroll
-            const startTime = performance.now();
+            // Fluid Canvas Particle System
+            const canvas = document.getElementById("fluidCanvas");
+            const ctx = canvas.getContext("2d");
 
-            function smoothScroll(currentTime) {
-                const elapsed = currentTime - startTime;
-                const progress = Math.min(elapsed / duration, 1);
-                
-                // Easing function for smooth deceleration
-                const easeOutCubic = 1 - Math.pow(1 - progress, 3);
-                
-                const newPosition = startPosition + (distance * easeOutCubic);
-                window.scrollTo(0, newPosition);
-                
-                // Update parallax during auto-scroll
-                updateStatsParallax(newPosition);
-                
-                if (progress < 1) {
-                    requestAnimationFrame(smoothScroll);
-                } else {
-                    // Re-enable manual scroll
-                    document.body.style.overflow = 'auto';
-                    autoScrolling = false;
-                    autoScrollComplete = true;
-                }
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
             }
+            resizeCanvas();
+            window.addEventListener("resize", resizeCanvas);
 
-            requestAnimationFrame(smoothScroll);
-        }
+            const particles = [];
+            const particleCount = 150;
+            const connectionDistance = 120;
+            const mouse = {
+                x: canvas.width / 2,
+                y: canvas.height / 2,
+                radius: 150,
+            };
 
-        // Form submission
-        document.getElementById('notifyForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('emailInput').value;
-            const successMessage = document.getElementById('successMessage');
-            const form = document.getElementById('notifyForm');
-            
-            console.log('Email submitted:', email);
-            
-            form.style.display = 'none';
-            successMessage.style.display = 'block';
-            
-            setTimeout(() => {
-                form.style.display = 'flex';
-                successMessage.style.display = 'none';
-                document.getElementById('emailInput').value = '';
-            }, 3000);
-        });
-
-        // Parallax effect on mouse move for orbs
-        document.addEventListener('mousemove', (e) => {
-            const orbs = document.querySelectorAll('.orb');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-
-            orbs.forEach((orb, index) => {
-                const speed = (index + 1) * 20;
-                orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-            });
-        });
-
-        // Fluid Canvas Particle System
-        const canvas = document.getElementById('fluidCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        function resizeCanvas() {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        const particles = [];
-        const particleCount = 150;
-        const connectionDistance = 120;
-        const mouse = { x: canvas.width / 2, y: canvas.height / 2, radius: 150 };
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-                this.originalVx = this.vx;
-                this.originalVy = this.vy;
-            }
-
-            update() {
-                // Mouse interaction
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < mouse.radius) {
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    const angle = Math.atan2(dy, dx);
-                    this.vx -= Math.cos(angle) * force * 0.5;
-                    this.vy -= Math.sin(angle) * force * 0.5;
-                } else {
-                    // Return to original velocity
-                    this.vx += (this.originalVx - this.vx) * 0.05;
-                    this.vy += (this.originalVy - this.vy) * 0.05;
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.vx = (Math.random() - 0.5) * 0.5;
+                    this.vy = (Math.random() - 0.5) * 0.5;
+                    this.radius = Math.random() * 2 + 1;
+                    this.originalVx = this.vx;
+                    this.originalVy = this.vy;
                 }
 
-                this.x += this.vx;
-                this.y += this.vy;
-
-                // Boundary check
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.vx *= -1;
-                    this.originalVx *= -1;
-                }
-                if (this.y < 0 || this.y > canvas.height) {
-                    this.vy *= -1;
-                    this.originalVy *= -1;
-                }
-
-                // Keep within bounds
-                this.x = Math.max(0, Math.min(canvas.width, this.x));
-                this.y = Math.max(0, Math.min(canvas.height, this.y));
-            }
-
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-                ctx.fill();
-            }
-        }
-
-        // Create particles
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        // Draw connections
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
+                update() {
+                    // Mouse interaction
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < connectionDistance) {
-                        const opacity = (1 - distance / connectionDistance) * 0.5;
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
-                        ctx.lineWidth = 1;
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
+                    if (distance < mouse.radius) {
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const angle = Math.atan2(dy, dx);
+                        this.vx -= Math.cos(angle) * force * 0.5;
+                        this.vy -= Math.sin(angle) * force * 0.5;
+                    } else {
+                        // Return to original velocity
+                        this.vx += (this.originalVx - this.vx) * 0.05;
+                        this.vy += (this.originalVy - this.vy) * 0.05;
+                    }
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Boundary check
+                    if (this.x < 0 || this.x > canvas.width) {
+                        this.vx *= -1;
+                        this.originalVx *= -1;
+                    }
+                    if (this.y < 0 || this.y > canvas.height) {
+                        this.vy *= -1;
+                        this.originalVy *= -1;
+                    }
+
+                    // Keep within bounds
+                    this.x = Math.max(0, Math.min(canvas.width, this.x));
+                    this.y = Math.max(0, Math.min(canvas.height, this.y));
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+                    ctx.fill();
+                }
+            }
+
+            // Create particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            // Draw connections
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < connectionDistance) {
+                            const opacity =
+                                (1 - distance / connectionDistance) * 0.5;
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255, 255, 255, ${opacity})`;
+                            ctx.lineWidth = 1;
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.stroke();
+                        }
                     }
                 }
             }
-        }
 
-        // Animation loop
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+                particles.forEach((particle) => {
+                    particle.update();
+                    particle.draw();
+                });
+
+                drawConnections();
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Update mouse position for canvas
+            canvas.addEventListener("mousemove", (e) => {
+                const rect = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - rect.left;
+                mouse.y = e.clientY - rect.top;
             });
 
-            drawConnections();
+            canvas.addEventListener("mouseleave", () => {
+                mouse.x = canvas.width / 2;
+                mouse.y = canvas.height / 2;
+            });
 
-            requestAnimationFrame(animate);
-        }
+            // Scroll progress indicator
+            const progressCircle = document.querySelector(
+                ".progress-ring-progress",
+            );
+            const scrollProgress = document.querySelector(".scroll-progress");
 
-        animate();
+            window.addEventListener("scroll", () => {
+                const windowHeight = window.innerHeight;
+                const documentHeight =
+                    document.documentElement.scrollHeight - windowHeight;
+                const scrolled = window.scrollY;
+                const progress = (scrolled / documentHeight) * 157;
 
-        // Update mouse position for canvas
-        canvas.addEventListener('mousemove', (e) => {
-            const rect = canvas.getBoundingClientRect();
-            mouse.x = e.clientX - rect.left;
-            mouse.y = e.clientY - rect.top;
-        });
+                progressCircle.style.strokeDashoffset = 157 - progress;
 
-        canvas.addEventListener('mouseleave', () => {
-            mouse.x = canvas.width / 2;
-            mouse.y = canvas.height / 2;
-        });
+                // Show/hide based on scroll position
+                if (scrolled > 100) {
+                    scrollProgress.style.opacity = "1";
+                } else {
+                    scrollProgress.style.opacity = "0";
+                }
+            });
 
-        // Scroll progress indicator
-        const progressCircle = document.querySelector('.progress-ring-progress');
-        const scrollProgress = document.querySelector('.scroll-progress');
-        
-        window.addEventListener('scroll', () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight - windowHeight;
-            const scrolled = window.scrollY;
-            const progress = (scrolled / documentHeight) * 157;
-            
-            progressCircle.style.strokeDashoffset = 157 - progress;
+            // Interactive morphing shape - mouse tracking
+            const morphingShape = document.querySelector(".morphing-shape");
 
-            // Show/hide based on scroll position
-            if (scrolled > 100) {
-                scrollProgress.style.opacity = '1';
-            } else {
-                scrollProgress.style.opacity = '0';
-            }
-        });
+            document.addEventListener("mousemove", (e) => {
+                if (morphingShape) {
+                    const rect = morphingShape.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const angleX = (e.clientY - centerY) / 50;
+                    const angleY = (e.clientX - centerX) / 50;
 
-        // Interactive morphing shape - mouse tracking
-        const morphingShape = document.querySelector('.morphing-shape');
-        
-        document.addEventListener('mousemove', (e) => {
-            if (morphingShape) {
-                const rect = morphingShape.getBoundingClientRect();
-                const centerX = rect.left + rect.width / 2;
-                const centerY = rect.top + rect.height / 2;
-                const angleX = (e.clientY - centerY) / 50;
-                const angleY = (e.clientX - centerX) / 50;
-                
-                morphingShape.style.transform = `translate(-50%, -50%) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
-            }
-        });
-    </script>
-</body>
+                    morphingShape.style.transform = `translate(-50%, -50%) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+                }
+            });
+        </script>
+    </body>
 </html>
